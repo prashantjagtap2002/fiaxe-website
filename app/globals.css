@@ -30,8 +30,8 @@
 
 /* ── Light theme (default) ─────────────────────────────────────────── */
 /* "canvas" is the page background; "ink" is cards/surfaces, so cards lift
-   off the page with a soft border + shadow (modern SaaS depth). Accent is a
-   warm coral. */
+   off the page with a soft border + shadow (modern SaaS depth). The neutral
+   base is a warm cream, with a confident blue accent for contrast. */
 :root,
 [data-theme="light"] {
   --canvas: #f7f5f2;
@@ -41,9 +41,9 @@
   --surface-2: #f3f0eb;
   --line: #e9e4dc;
   --line-bright: #d8d2c8;
-  --blue: #d94f37;
-  --blue-bright: #ec6a4f;
-  --blue-deep: #b83f29;
+  --blue: #2c5fd6;
+  --blue-bright: #4f7eea;
+  --blue-deep: #1f49b0;
   --cream: #1b1714;
   --muted: #6a635c;
   --faint: #a69e94;
@@ -58,9 +58,9 @@
   --surface-2: #211f24;
   --line: #2c2a30;
   --line-bright: #403d45;
-  --blue: #ff6f52;
-  --blue-bright: #ff856b;
-  --blue-deep: #e2553d;
+  --blue: #5b8def;
+  --blue-bright: #7aa4f5;
+  --blue-deep: #3f6fd4;
   --cream: #f4f1ec;
   --muted: #a39d96;
   --faint: #6f6960;
@@ -104,7 +104,7 @@ body {
 
 /* warm highlight bar beneath key headline words */
 .underline-bar {
-  background-image: linear-gradient(rgb(255 176 122 / 0.6), rgb(255 176 122 / 0.6));
+  background-image: linear-gradient(rgb(120 158 240 / 0.55), rgb(120 158 240 / 0.55));
   background-repeat: no-repeat;
   background-size: 100% 0.13em;
   background-position: 0 94%;
