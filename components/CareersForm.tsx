@@ -14,6 +14,8 @@ const ROLES = [
   "Open / Other",
 ];
 
+const EMPLOYMENT_TYPES = ["Full-time", "Contract", "Internship", "Part-time", "Freelance"];
+
 const fieldCls =
   "rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 text-sm text-cream outline-none transition-colors placeholder:text-faint focus:border-blue";
 const labelCls = "font-mono text-[10px] tracking-[0.12em] text-faint uppercase";
@@ -27,6 +29,7 @@ export function CareersForm() {
     const d = new FormData(e.currentTarget);
     const body = [
       `Role: ${d.get("role")}`,
+      `Employment type: ${d.get("employmentType")}`,
       `Name: ${d.get("name")}`,
       `Email: ${d.get("email")}`,
       `Phone: ${d.get("phone")}`,
@@ -54,21 +57,38 @@ export function CareersForm() {
         onSubmit={handleSubmit}
         className="grid gap-5 border border-line rounded-2xl border border-line bg-ink p-8 shadow-sm md:p-10"
       >
-        <label className="flex flex-col gap-2">
-          <span className={labelCls}>
-            Role you&apos;re applying for <span className="text-blue">*</span>
-          </span>
-          <select name="role" required defaultValue="" className={fieldCls}>
-            <option value="" disabled>
-              Select a role…
-            </option>
-            {ROLES.map((r) => (
-              <option key={r} value={r}>
-                {r}
+        <div className="grid gap-5 sm:grid-cols-2">
+          <label className="flex flex-col gap-2">
+            <span className={labelCls}>
+              Role you&apos;re applying for <span className="text-blue">*</span>
+            </span>
+            <select name="role" required defaultValue="" className={`${fieldCls} select-field`}>
+              <option value="" disabled>
+                Select a role…
               </option>
-            ))}
-          </select>
-        </label>
+              {ROLES.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="flex flex-col gap-2">
+            <span className={labelCls}>
+              Employment type <span className="text-blue">*</span>
+            </span>
+            <select name="employmentType" required defaultValue="" className={`${fieldCls} select-field`}>
+              <option value="" disabled>
+                Select type…
+              </option>
+              {EMPLOYMENT_TYPES.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="flex flex-col gap-2">
@@ -107,13 +127,21 @@ export function CareersForm() {
 
         <label className="flex flex-col gap-2">
           <span className={labelCls}>Resume (PDF)</span>
-          <input
-            name="resume"
-            type="file"
-            accept=".pdf,.doc,.docx"
-            onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
-            className="rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 text-sm text-muted file:mr-3 file:rounded-xl file:border-0 file:bg-blue file:px-3 file:py-1.5 file:font-mono file:text-[11px] file:uppercase file:text-white"
-          />
+          <span className="group flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 transition-colors focus-within:border-blue">
+            <span className="rounded-lg border border-line-bright px-3 py-1.5 font-mono text-[10px] tracking-[0.12em] text-cream uppercase transition-colors group-hover:border-cream">
+              Choose file
+            </span>
+            <span className="truncate text-sm text-muted">
+              {fileName || "No file chosen"}
+            </span>
+            <input
+              name="resume"
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
+              className="sr-only"
+            />
+          </span>
         </label>
 
         <label className="flex flex-col gap-2">

@@ -102,6 +102,31 @@ body {
   color: var(--ink);
 }
 
+/* custom select: hide the native chevron and render an aligned one */
+.select-field {
+  appearance: none;
+  -webkit-appearance: none;
+  color-scheme: light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%236a635c' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 0.72rem;
+  padding-right: 2.75rem;
+}
+/* keep the open option list on-theme (otherwise the selected/placeholder
+   row renders with a white background in dark mode) */
+.select-field option {
+  background-color: var(--ink);
+  color: var(--cream);
+}
+.select-field option:disabled {
+  color: var(--muted);
+}
+[data-theme="dark"] .select-field {
+  color-scheme: dark;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23a39d96' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
 /* warm highlight bar beneath key headline words */
 .underline-bar {
   background-image: linear-gradient(rgb(120 158 240 / 0.55), rgb(120 158 240 / 0.55));
