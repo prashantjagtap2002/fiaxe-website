@@ -94,11 +94,11 @@ export function CustomerOutcomes() {
           </div>
           {COMPARISON.map((row) => (
             <div key={row.without} className="grid grid-cols-2 gap-px border-t border-line bg-line">
-              <div className="flex items-start gap-3 bg-ink-2 px-6 py-5">
+              <div className="flex items-start gap-2.5 bg-ink-2 px-4 py-4 sm:gap-3 sm:px-6 sm:py-5">
                 <span className="mt-0.5 font-mono text-xs text-faint">×</span>
                 <p className="text-sm leading-relaxed text-muted">{row.without}</p>
               </div>
-              <div className="flex items-start gap-3 bg-ink px-6 py-5">
+              <div className="flex items-start gap-2.5 bg-ink px-4 py-4 sm:gap-3 sm:px-6 sm:py-5">
                 <span className="mt-0.5 font-mono text-xs text-blue">✓</span>
                 <p className="text-sm leading-relaxed text-cream">{row.with}</p>
               </div>

@@ -56,8 +56,8 @@ export function Footer() {
   return (
     <footer className="border-t border-line">
       <div className="mx-auto max-w-7xl px-5 py-16 md:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
-          <div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:gap-12 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
               Voice AI agents for modern businesses, collections, reminders,

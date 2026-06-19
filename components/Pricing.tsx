@@ -62,9 +62,9 @@ export function Pricing() {
       <Reveal>
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
           {TIERS.map((t) => (
-            <div key={t.name} className="flex flex-col rounded-2xl border border-line bg-ink p-7 shadow-sm">
+            <div key={t.name} className="flex flex-col rounded-2xl border border-line bg-ink p-5 shadow-sm sm:p-7">
               <p className="mono-label !text-cream">{t.name}</p>
-              <p className="mt-6 font-display text-[2.6rem] leading-none font-medium tracking-tight">
+              <p className="mt-6 font-display text-[2.1rem] leading-none font-medium tracking-tight sm:text-[2.6rem]">
                 {t.rate}
                 <span className="ml-1 font-mono text-sm font-normal text-faint">/ min</span>
               </p>
