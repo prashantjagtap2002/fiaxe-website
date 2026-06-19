@@ -1,0 +1,39 @@
+"use client";
+
+import Link from "next/link";
+import { Reveal, Waveform } from "./primitives";
+
+export function Cta() {
+  return (
+    <section id="cta" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <Reveal>
+        <div className="overflow-hidden rounded-3xl border border-line bg-ink px-6 py-16 text-center shadow-lg shadow-black/5 md:px-8 md:py-24">
+          <div className="mx-auto max-w-3xl">
+            <div className="flex justify-center">
+              <Waveform bars={6} className="h-6" />
+            </div>
+            <h2 className="mt-8 font-display text-4xl font-medium tracking-tight text-balance md:text-6xl">
+              Ready for voice AI that{" "}
+              <span className="underline-bar">actually works?</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              Book a free discovery call, we&apos;ll show you exactly how a custom Fiaxe agent
+              would handle your calls, leads, and bookings.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/book-demo"
+                className="rounded-full bg-blue px-7 py-4 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase shadow-sm transition-colors hover:bg-blue-bright"
+              >
+                Book a discovery call →
+              </Link>
+            </div>
+            <p className="mt-8 font-mono text-[11px] tracking-wider text-faint uppercase">
+              Free · No commitment · 30 min call
+            </p>
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
