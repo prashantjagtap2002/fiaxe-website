@@ -2,7 +2,6 @@ import { Hero } from "@/components/Hero";
 import { WhatWeBuild } from "@/components/WhatWeBuild";
 import { Process } from "@/components/Process";
 import { AgentsStrip } from "@/components/AgentsStrip";
-import { WhyFiaxe } from "@/components/WhyFiaxe";
 import { CrmShowcase } from "@/components/CrmShowcase";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
@@ -15,7 +14,6 @@ export default function Home() {
       <WhatWeBuild />
       <Process />
       <AgentsStrip />
-      <WhyFiaxe />
       <CrmShowcase />
       <Testimonials />
       <FAQ />
