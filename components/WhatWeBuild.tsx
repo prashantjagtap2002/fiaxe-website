@@ -30,9 +30,9 @@ export function WhatWeBuild() {
   return (
     <section id="what-we-build" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-        {/* sticky narrative column */}
-        <div className="lg:col-span-5">
-          <div className="lg:sticky lg:top-28">
+        {/* narrative column, centered against the taller list */}
+        <div className="lg:col-span-5 lg:self-center">
+          <div>
             <Reveal>
               <Kicker label="What We Build" />
             </Reveal>

@@ -127,6 +127,22 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23a39d96' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
+/* hero scenic backdrop — swaps per theme, fades down into the page so the
+   headline and call panel stay legible over it */
+.hero-bg {
+  background-image: url("/hero/bg-light.webp");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.42;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 88%);
+  mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 88%);
+}
+[data-theme="dark"] .hero-bg {
+  background-image: url("/hero/bg-dark.webp");
+  opacity: 0.6;
+}
+
 /* warm highlight bar beneath key headline words */
 .underline-bar {
   background-image: linear-gradient(rgb(120 158 240 / 0.55), rgb(120 158 240 / 0.55));

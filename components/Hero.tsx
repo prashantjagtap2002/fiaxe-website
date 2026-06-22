@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { CountUp, Kicker } from "./primitives";
+import { CountUp } from "./primitives";
 import { CLIENTS } from "./Customers";
 
 const SAMPLE_CALL_SRC = "/sample-call.mp3";
@@ -211,7 +211,12 @@ export function Hero() {
   }
 
   return (
-    <section className="relative pt-32 md:pt-40">
+    <section className="relative isolate pt-32 md:pt-40">
+      {/* themed scenic backdrop, pinned to the top and faded into the page */}
+      <div
+        aria-hidden="true"
+        className="hero-bg pointer-events-none absolute inset-x-0 top-0 -z-10 h-[560px] md:h-[720px]"
+      />
       <audio
         ref={audioRef}
         src={SAMPLE_CALL_SRC}
@@ -221,19 +226,6 @@ export function Hero() {
         onEnded={() => setPlaying(false)}
       />
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        {/* eyebrow */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex items-center justify-between gap-4"
-        >
-          <Kicker label="Voice AI" />
-          <span className="hidden font-mono text-[10px] tracking-[0.16em] text-faint uppercase md:block">
-            Outbound · Inbound · 24/7
-          </span>
-        </motion.div>
-
         <div className="grid items-center gap-12 py-12 md:py-16 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-6">
             <motion.h1

@@ -33,7 +33,7 @@ const STEPS: Step[] = [
 
 export function Process() {
   return (
-    <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+    <section id="how-it-works" className="mx-auto max-w-7xl px-5 pt-24 pb-12 md:px-8 md:pt-32 md:pb-16">
       <Reveal>
         <Kicker label="How It Works" />
       </Reveal>
