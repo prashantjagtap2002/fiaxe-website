@@ -30,7 +30,7 @@ export function Nav() {
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
 
   const linkBase =
-    "px-2 py-2 font-mono text-[11px] tracking-[0.02em] transition-colors hover:text-cream";
+    "px-2 py-2 font-mono text-[11px] tracking-[0.02em] transition-colors hover:text-blue";
 
   return (
     <motion.header
@@ -51,7 +51,7 @@ export function Nav() {
         {/* full nav, only on very wide screens given the link count */}
         <div className="hidden items-center xl:flex">
           {SCROLL_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className={`${linkBase} text-muted`}>
+            <Link key={l.href} href={l.href} className={`${linkBase} text-cream`}>
               {l.label}
             </Link>
           ))}
@@ -63,7 +63,7 @@ export function Nav() {
                 key={l.href}
                 href={l.href}
                 aria-current={active ? "page" : undefined}
-                className={`${linkBase} ${active ? "font-medium text-blue" : "text-muted"}`}
+                className={`${linkBase} ${active ? "font-medium text-blue" : "text-cream"}`}
               >
                 {l.label}
               </Link>
