@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { InlineScript } from "@/components/InlineScript";
 
-const schibsted = Schibsted_Grotesk({
-  variable: "--font-schibsted",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-});
-
-const hanken = Hanken_Grotesk({
-  variable: "--font-hanken",
-  subsets: ["latin"],
 });
 
 const jetbrains = JetBrains_Mono({
@@ -52,7 +47,7 @@ export default function RootLayout({
       lang="en"
       data-theme="dark"
       suppressHydrationWarning
-      className={`${schibsted.variable} ${hanken.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetbrains.variable} h-full antialiased`}
     >
       <head>
         {/* Dark is the FIAXE default; honor a saved preference if one exists. */}

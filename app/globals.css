@@ -17,8 +17,8 @@
   --color-muted: var(--muted);
   --color-faint: var(--faint);
 
-  --font-display: var(--font-schibsted), system-ui, sans-serif;
-  --font-body: var(--font-hanken), system-ui, sans-serif;
+  --font-display: var(--font-inter), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jb), ui-monospace, monospace;
 }
 
@@ -41,9 +41,9 @@
   --surface-2: #f3f0eb;
   --line: #e9e4dc;
   --line-bright: #d8d2c8;
-  --blue: #2c5fd6;
-  --blue-bright: #4f7eea;
-  --blue-deep: #1f49b0;
+  --blue: #0c9b6a;
+  --blue-bright: #12b87f;
+  --blue-deep: #0a7a52;
   --cream: #1b1714;
   --muted: #6a635c;
   --faint: #a69e94;
@@ -58,9 +58,9 @@
   --surface-2: #211f24;
   --line: #2c2a30;
   --line-bright: #403d45;
-  --blue: #5b8def;
-  --blue-bright: #7aa4f5;
-  --blue-deep: #3f6fd4;
+  --blue: #18e299;
+  --blue-bright: #4fecb3;
+  --blue-deep: #15c489;
   --cream: #f4f1ec;
   --muted: #a39d96;
   --faint: #6f6960;
@@ -135,32 +135,40 @@ body {
 .hero-bg {
   background-image:
     linear-gradient(
-      to right,
-      var(--canvas) 0%,
-      color-mix(in srgb, var(--canvas) 72%, transparent) 30%,
-      transparent 58%
+      to bottom,
+      color-mix(in srgb, var(--canvas) 62%, transparent) 0%,
+      color-mix(in srgb, var(--canvas) 52%, transparent) 44%,
+      transparent 72%,
+      var(--canvas) 98%
     ),
-    linear-gradient(to bottom, transparent 0%, transparent 52%, var(--canvas) 94%),
     url("/hero/bg-light.webp");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
 }
+
+/* soft canvas-coloured halo so hero copy stays legible over the image in
+   either theme, without having to wash the image out */
+.hero-copy {
+  text-shadow:
+    0 0 22px var(--canvas),
+    0 1px 4px var(--canvas);
+}
 [data-theme="dark"] .hero-bg {
   background-image:
     linear-gradient(
-      to right,
-      var(--canvas) 0%,
-      color-mix(in srgb, var(--canvas) 66%, transparent) 32%,
-      transparent 60%
+      to bottom,
+      color-mix(in srgb, var(--canvas) 50%, transparent) 0%,
+      color-mix(in srgb, var(--canvas) 40%, transparent) 38%,
+      transparent 70%,
+      var(--canvas) 97%
     ),
-    linear-gradient(to bottom, transparent 0%, transparent 52%, var(--canvas) 94%),
     url("/hero/bg-dark.webp");
 }
 
 /* warm highlight bar beneath key headline words */
 .underline-bar {
-  background-image: linear-gradient(rgb(120 158 240 / 0.55), rgb(120 158 240 / 0.55));
+  background-image: linear-gradient(rgb(24 226 153 / 0.5), rgb(24 226 153 / 0.5));
   background-repeat: no-repeat;
   background-size: 100% 0.13em;
   background-position: 0 94%;
