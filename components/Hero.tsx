@@ -275,8 +275,8 @@ export function Hero() {
                   Book a Discovery Call
                 </span>
               </Link>
-              <a
-                href="#live-demo"
+              <Link
+                href="/agents"
                 className="group rounded-full border border-line-bright px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-cream uppercase transition-colors hover:border-cream"
               >
                 <span className="flex items-center gap-2.5">
@@ -285,7 +285,7 @@ export function Hero() {
                   </svg>
                   Hear the AI in Action
                 </span>
-              </a>
+              </Link>
             </motion.div>
 
             {/* metrics, moved up beneath the CTAs */}

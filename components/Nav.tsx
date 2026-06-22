@@ -60,7 +60,8 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`${linkBase} ${active ? "text-cream" : "text-muted"}`}
+                aria-current={active ? "page" : undefined}
+                className={`${linkBase} ${active ? "font-medium text-blue" : "text-muted"}`}
               >
                 {l.label}
               </Link>
@@ -111,16 +112,22 @@ export function Nav() {
             </Link>
           ))}
           <p className="mt-3 px-2 font-mono text-[10px] tracking-[0.2em] text-faint uppercase">More</p>
-          {PAGE_LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="block px-2 py-2.5 font-mono text-sm text-muted hover:text-cream"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {PAGE_LINKS.map((l) => {
+            const active = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                aria-current={active ? "page" : undefined}
+                className={`block px-2 py-2.5 font-mono text-sm ${
+                  active ? "font-medium text-blue" : "text-muted hover:text-cream"
+                }`}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
           <Link
             href="/book-demo"
             onClick={() => setOpen(false)}

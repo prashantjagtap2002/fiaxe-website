@@ -2,10 +2,10 @@ import { Reveal, Kicker } from "./primitives";
 
 /* Hero stat band: a few proof points that frame what the agents deliver. */
 const STATS = [
-  { value: "28+", label: "Vernacular languages out of the box" },
+  { value: "<300ms", label: "Real-time conversation latency" },
   { value: "24/7", label: "Always-on, never miss a call" },
-  { value: "<400ms", label: "Real-time conversation latency" },
-  { value: "6+", label: "Production-ready agent types" },
+  { value: "28+", label: "Vernacular languages out of the box" },
+  { value: "10+", label: "Clients onboarded" },
 ];
 
 /* Top-of-page hero for /agents: headline + a hero stat band. */

@@ -51,10 +51,10 @@ export function Process() {
 
       {/* horizontal timeline */}
       <div className="relative mt-16">
-        {/* one clean spine through the step numbers, fading at both ends (desktop) */}
+        {/* one clean spine running between the first and last step numbers (desktop) */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute top-6 right-0 left-0 hidden h-px bg-line-bright [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent)] lg:block"
+          className="pointer-events-none absolute top-6 left-6 right-[calc(100%/6-44px)] hidden h-px bg-line-bright lg:block"
         />
         <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-6">
           {STEPS.map((s, i) => (
@@ -68,7 +68,7 @@ export function Process() {
                 </h3>
                 <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{s.desc}</p>
                 {s.tag && (
-                  <span className="mt-auto pt-4">
+                  <span className="mt-4">
                     <span className="inline-block rounded-full border border-line px-3 py-1 font-mono text-[9px] tracking-[0.1em] whitespace-nowrap text-faint uppercase">
                       {s.tag}
                     </span>
