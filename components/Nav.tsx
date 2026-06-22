@@ -29,8 +29,16 @@ export function Nav() {
 
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
 
-  const linkBase =
-    "px-2 py-2 font-mono text-[11px] tracking-[0.02em] transition-colors hover:text-blue";
+  // The home route has a dark photographic hero behind the (transparent) nav.
+  // While we're over it, the nav contents render white; once scrolled into the
+  // solid panel they return to the theme colour.
+  const overHero = pathname === "/" && !scrolled;
+
+  const linkBase = "px-3.5 py-2 text-[15px] font-medium transition-colors";
+  const linkColor = overHero
+    ? "text-white/80 hover:text-white"
+    : "text-cream hover:text-blue";
+  const barColor = overHero ? "bg-white" : "bg-cream";
 
   return (
     <motion.header
@@ -43,27 +51,25 @@ export function Nav() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-5 md:px-8">
-        <Link href="/" aria-label="Fiaxe home" className="shrink-0">
+      <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-5 md:px-8">
+        <Link
+          href="/"
+          aria-label="Fiaxe home"
+          className={`shrink-0 ${overHero ? "text-white" : "text-cream"}`}
+        >
           <Logo />
         </Link>
 
         {/* full nav, only on very wide screens given the link count */}
-        <div className="hidden items-center xl:flex">
-          {SCROLL_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className={`${linkBase} text-cream`}>
-              {l.label}
-            </Link>
-          ))}
-          <span className="mx-1 h-3 w-px bg-line-bright" />
-          {PAGE_LINKS.map((l) => {
+        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center xl:flex">
+          {[...SCROLL_LINKS, ...PAGE_LINKS].map((l) => {
             const active = pathname === l.href;
             return (
               <Link
                 key={l.href}
                 href={l.href}
                 aria-current={active ? "page" : undefined}
-                className={`${linkBase} ${active ? "font-medium text-blue" : "text-cream"}`}
+                className={`${linkBase} ${active ? "text-blue" : linkColor}`}
               >
                 {l.label}
               </Link>
@@ -72,10 +78,10 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <ThemeToggle />
+          <ThemeToggle light={overHero} />
           <Link
             href="/book-demo"
-            className="hidden rounded-full bg-blue px-4 py-2.5 font-mono text-[11px] tracking-[0.12em] text-white uppercase shadow-sm transition-colors hover:bg-blue-bright sm:block"
+            className="hidden rounded-full bg-blue px-5 py-2 text-[14px] font-medium text-white shadow-sm transition-colors hover:bg-blue-bright sm:block"
           >
             Book Demo
           </Link>
@@ -86,9 +92,9 @@ export function Nav() {
             aria-label="Toggle menu"
             aria-expanded={open}
           >
-            <span className={`h-0.5 w-6 bg-cream transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`h-0.5 w-6 bg-cream transition-opacity ${open ? "opacity-0" : ""}`} />
-            <span className={`h-0.5 w-6 bg-cream transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+            <span className={`h-0.5 w-6 ${barColor} transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`h-0.5 w-6 ${barColor} transition-opacity ${open ? "opacity-0" : ""}`} />
+            <span className={`h-0.5 w-6 ${barColor} transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
           </button>
         </div>
       </nav>
@@ -98,7 +104,7 @@ export function Nav() {
           <Link
             href="/"
             onClick={() => setOpen(false)}
-            className="block px-2 py-2.5 font-mono text-sm text-cream"
+            className="block px-2 py-2.5 text-[15px] font-medium text-cream"
           >
             Home
           </Link>
@@ -108,7 +114,7 @@ export function Nav() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block px-2 py-2.5 font-mono text-sm text-muted hover:text-cream"
+              className="block px-2 py-2.5 text-[15px] text-muted hover:text-cream"
             >
               {l.label}
             </Link>
@@ -122,7 +128,7 @@ export function Nav() {
                 href={l.href}
                 onClick={() => setOpen(false)}
                 aria-current={active ? "page" : undefined}
-                className={`block px-2 py-2.5 font-mono text-sm ${
+                className={`block px-2 py-2.5 text-[15px] ${
                   active ? "font-medium text-blue" : "text-muted hover:text-cream"
                 }`}
               >
@@ -133,7 +139,7 @@ export function Nav() {
           <Link
             href="/book-demo"
             onClick={() => setOpen(false)}
-            className="mt-3 block rounded-full bg-blue px-5 py-3 text-center font-mono text-xs tracking-[0.15em] text-white uppercase"
+            className="mt-3 block rounded-full bg-blue px-5 py-3 text-center text-[15px] font-medium text-white"
           >
             Book Demo
           </Link>

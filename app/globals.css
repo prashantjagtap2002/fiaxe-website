@@ -127,36 +127,51 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23a39d96' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-/* hero scenic backdrop (Mintlify-style) — a vibrant full-bleed image that
-   the content sits on. Two canvas-coloured gradient layers ride on top of the
-   image: one fades it down into the page, the other softens the left side so
-   the headline/paragraph stay legible while the image shows vibrantly around
-   the call panel. var(--canvas) makes the blend theme-aware automatically. */
-/* full-bleed, vibrant scenic image (Mintlify-style). No washy overlay on the
-   image itself — just a fade into the page at the very bottom so it blends
-   into the content below. Legibility of the copy is handled by .hero-copy. */
+/* hero scenic backdrop (Mintlify-style) — a vibrant full-bleed image that the
+   content sits on. Three layers stack over the image:
+   1. a deep-navy scrim across the TOP so the white nav + headline read clearly
+      (this is the key to legibility — the copy is light, so the image must be
+      dark behind it, never bright);
+   2. a canvas-coloured fade at the BOTTOM so the image blends into the page;
+   3. the image itself.
+   var(--canvas) keeps the bottom blend theme-aware automatically. */
 .hero-bg {
   background-image:
-    linear-gradient(to bottom, transparent 0%, transparent 74%, var(--canvas) 99%),
+    linear-gradient(
+      to bottom,
+      rgb(7 18 36 / 0.84) 0%,
+      rgb(7 18 36 / 0.64) 22%,
+      rgb(7 18 36 / 0.42) 44%,
+      rgb(7 18 36 / 0.18) 64%,
+      transparent 78%
+    ),
+    linear-gradient(to bottom, transparent 0%, transparent 72%, var(--canvas) 98%),
     url("/hero/bg-light.webp");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
 }
+/* the dark-theme image (aurora over night sky) is already dark, so it needs
+   only a light top scrim to even out contrast under the nav. */
 [data-theme="dark"] .hero-bg {
   background-image:
-    linear-gradient(to bottom, transparent 0%, transparent 74%, var(--canvas) 99%),
+    linear-gradient(
+      to bottom,
+      rgb(5 10 22 / 0.6) 0%,
+      rgb(5 10 22 / 0.28) 30%,
+      transparent 58%
+    ),
+    linear-gradient(to bottom, transparent 0%, transparent 70%, var(--canvas) 97%),
     url("/hero/bg-dark.webp");
 }
 
-/* soft canvas-coloured halo hugging the hero copy so it stays legible over
-   the vibrant image in either theme — applied to the text, not the image, so
-   the image keeps its full colour. */
+/* the hero copy is light and sits on the darkened image, so it gets a soft
+   DARK drop-shadow for legibility (not a light halo, which glows on a bright
+   sky and reads badly). */
 .hero-copy {
   text-shadow:
-    0 1px 2px var(--canvas),
-    0 0 14px var(--canvas),
-    0 0 32px var(--canvas);
+    0 1px 3px rgb(3 10 24 / 0.55),
+    0 2px 24px rgb(3 10 24 / 0.45);
 }
 
 /* warm highlight bar beneath key headline words */

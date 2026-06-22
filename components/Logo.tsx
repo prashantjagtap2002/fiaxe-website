@@ -2,10 +2,11 @@ export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
   const dim = size === "lg" ? "size-9" : "size-7";
   return (
     <span className="inline-flex items-center gap-2.5 select-none">
-      {/* FIAXE "F" mark, inherits text color so it flips with the theme */}
+      {/* FIAXE "F" mark, inherits text color from the parent (so it can flip to
+          white over the hero and back to cream on solid surfaces) */}
       <svg
         viewBox="0 0 1024 1024"
-        className={`${dim} text-cream`}
+        className={dim}
         fill="currentColor"
         aria-hidden="true"
       >
