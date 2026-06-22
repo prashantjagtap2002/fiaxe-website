@@ -127,20 +127,35 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23a39d96' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-/* hero scenic backdrop — swaps per theme, fades down into the page so the
-   headline and call panel stay legible over it */
+/* hero scenic backdrop (Mintlify-style) — a vibrant full-bleed image that
+   the content sits on. Two canvas-coloured gradient layers ride on top of the
+   image: one fades it down into the page, the other softens the left side so
+   the headline/paragraph stay legible while the image shows vibrantly around
+   the call panel. var(--canvas) makes the blend theme-aware automatically. */
 .hero-bg {
-  background-image: url("/hero/bg-light.webp");
+  background-image:
+    linear-gradient(
+      to right,
+      var(--canvas) 0%,
+      color-mix(in srgb, var(--canvas) 72%, transparent) 30%,
+      transparent 58%
+    ),
+    linear-gradient(to bottom, transparent 0%, transparent 52%, var(--canvas) 94%),
+    url("/hero/bg-light.webp");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-  opacity: 0.42;
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 88%);
-  mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 88%);
 }
 [data-theme="dark"] .hero-bg {
-  background-image: url("/hero/bg-dark.webp");
-  opacity: 0.6;
+  background-image:
+    linear-gradient(
+      to right,
+      var(--canvas) 0%,
+      color-mix(in srgb, var(--canvas) 66%, transparent) 32%,
+      transparent 60%
+    ),
+    linear-gradient(to bottom, transparent 0%, transparent 52%, var(--canvas) 94%),
+    url("/hero/bg-dark.webp");
 }
 
 /* warm highlight bar beneath key headline words */

@@ -215,7 +215,7 @@ export function Hero() {
       {/* themed scenic backdrop, pinned to the top and faded into the page */}
       <div
         aria-hidden="true"
-        className="hero-bg pointer-events-none absolute inset-x-0 top-0 -z-10 h-[560px] md:h-[720px]"
+        className="hero-bg pointer-events-none absolute inset-x-0 top-0 -z-10 h-[720px] md:h-[880px]"
       />
       <audio
         ref={audioRef}
