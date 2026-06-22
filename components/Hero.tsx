@@ -36,7 +36,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45 }}
-            className="hero-copy mt-7 max-w-xl text-lg leading-relaxed text-balance text-muted"
+            className="hero-copy mt-7 max-w-xl text-lg font-medium leading-relaxed text-balance text-cream"
           >
             Fiaxe builds fully custom AI voice agents for your business, not
             templates, not DIY tools. Every agent is built from scratch around
@@ -79,7 +79,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.75 }}
-            className="mt-12 grid w-full max-w-2xl grid-cols-2 gap-y-8 border-t border-line pt-8 sm:grid-cols-4"
+            className="hero-copy mt-12 grid w-full max-w-2xl grid-cols-2 gap-y-8 border-t border-line pt-8 sm:grid-cols-4"
           >
             {STATS.map((s) => (
               <div

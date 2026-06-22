@@ -132,38 +132,31 @@ body {
    image: one fades it down into the page, the other softens the left side so
    the headline/paragraph stay legible while the image shows vibrantly around
    the call panel. var(--canvas) makes the blend theme-aware automatically. */
+/* full-bleed, vibrant scenic image (Mintlify-style). No washy overlay on the
+   image itself — just a fade into the page at the very bottom so it blends
+   into the content below. Legibility of the copy is handled by .hero-copy. */
 .hero-bg {
   background-image:
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--canvas) 62%, transparent) 0%,
-      color-mix(in srgb, var(--canvas) 52%, transparent) 44%,
-      transparent 72%,
-      var(--canvas) 98%
-    ),
+    linear-gradient(to bottom, transparent 0%, transparent 74%, var(--canvas) 99%),
     url("/hero/bg-light.webp");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
 }
-
-/* soft canvas-coloured halo so hero copy stays legible over the image in
-   either theme, without having to wash the image out */
-.hero-copy {
-  text-shadow:
-    0 0 22px var(--canvas),
-    0 1px 4px var(--canvas);
-}
 [data-theme="dark"] .hero-bg {
   background-image:
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--canvas) 50%, transparent) 0%,
-      color-mix(in srgb, var(--canvas) 40%, transparent) 38%,
-      transparent 70%,
-      var(--canvas) 97%
-    ),
+    linear-gradient(to bottom, transparent 0%, transparent 74%, var(--canvas) 99%),
     url("/hero/bg-dark.webp");
+}
+
+/* soft canvas-coloured halo hugging the hero copy so it stays legible over
+   the vibrant image in either theme — applied to the text, not the image, so
+   the image keeps its full colour. */
+.hero-copy {
+  text-shadow:
+    0 1px 2px var(--canvas),
+    0 0 14px var(--canvas),
+    0 0 32px var(--canvas);
 }
 
 /* warm highlight bar beneath key headline words */
