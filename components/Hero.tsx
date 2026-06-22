@@ -14,34 +14,51 @@ const STATS: { label: string; value: number; suffix?: string; prefix?: string; d
 
 export function Hero() {
   return (
-    <section className="relative isolate pt-32 md:pt-40">
+    <section className="relative isolate pt-24 md:pt-28">
       {/* themed scenic backdrop, pinned to the top and faded into the page */}
       <div
         aria-hidden="true"
         className="hero-bg pointer-events-none absolute inset-x-0 top-0 -z-10 h-[620px] md:h-[760px]"
       />
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="mx-auto flex max-w-3xl flex-col items-center py-10 text-center md:py-16">
+        <div className="mx-auto flex max-w-3xl flex-col items-center py-6 text-center md:py-10">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mb-8"
+          >
+            <Link
+              href="/agents"
+              className="hero-copy group inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 py-1.5 pr-4 pl-1.5 text-sm text-white/90 backdrop-blur-md transition-colors hover:bg-white/20"
+            >
+              <span className="rounded-full bg-blue px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-[0.12em] text-white uppercase">
+                New
+              </span>
+              <span className="font-medium">Real-time voice agents in 28+ Indian languages</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </Link>
+          </motion.div>
+
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 0.61, 0.24, 1] }}
-            className="hero-copy font-display text-[2.9rem] font-medium leading-[1.03] tracking-tight text-balance sm:text-6xl md:text-[4.5rem]"
+            className="hero-copy font-display text-[2.9rem] font-medium leading-[1.03] tracking-tight text-balance text-white sm:text-6xl md:text-[4.5rem]"
           >
-            Your business deserves{" "}
-            <span className="underline-bar">better than a bot.</span>
+            Build human-like voice AI agents
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45 }}
-            className="hero-copy mt-7 max-w-xl text-lg font-medium leading-relaxed text-balance text-cream"
+            className="hero-copy mt-7 max-w-xl text-lg font-medium leading-relaxed text-balance text-white/85"
           >
-            Fiaxe builds fully custom AI voice agents for your business, not
-            templates, not DIY tools. Every agent is built from scratch around
-            how your business actually runs. Calls, leads, bookings, support:
-            all handled.
+            From no-code builders for teams to flexible APIs for developers,
+            deploy voice agents that actually sound human.
           </motion.p>
 
           <motion.div
@@ -63,7 +80,7 @@ export function Hero() {
             </Link>
             <Link
               href="/agents"
-              className="group rounded-full border border-line-bright px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-cream uppercase transition-colors hover:border-cream"
+              className="group rounded-full border border-cream/30 px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-cream uppercase transition-colors hover:border-cream hover:bg-cream/5"
             >
               <span className="flex items-center gap-2.5">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
@@ -79,7 +96,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.75 }}
-            className="hero-copy mt-12 grid w-full max-w-2xl grid-cols-2 gap-y-8 border-t border-line pt-8 sm:grid-cols-4"
+            className="mt-12 grid w-full max-w-2xl grid-cols-2 gap-y-8 border-t border-line pt-8 sm:grid-cols-4"
           >
             {STATS.map((s) => (
               <div

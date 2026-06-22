@@ -28,7 +28,14 @@ function getServerSnapshot(): Theme {
   return "light";
 }
 
-export function ThemeToggle({ className = "" }: { className?: string }) {
+export function ThemeToggle({
+  className = "",
+  light = false,
+}: {
+  className?: string;
+  /* render light (for sitting over the dark hero image) */
+  light?: boolean;
+}) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const isDark = theme === "dark";
@@ -95,7 +102,11 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       onClick={toggle}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       title={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      className={`grid size-9 place-items-center rounded-full border border-line-bright text-cream transition-colors hover:border-cream ${className}`}
+      className={`grid size-9 place-items-center rounded-full border transition-colors ${
+        light
+          ? "border-white/40 text-white hover:border-white"
+          : "border-line-bright text-cream hover:border-cream"
+      } ${className}`}
     >
       {isDark ? (
         // sun
