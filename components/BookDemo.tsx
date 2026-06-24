@@ -14,27 +14,32 @@ const EXPECT = [
   { t: "You get a clear plan", d: "A custom scope and quote, so you know precisely what go-live looks like." },
 ];
 
-export function BookDemo() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "sending" | "success" | "error";
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+export function BookDemo() {
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const d = new FormData(e.currentTarget);
-    const body = [
-      `Name: ${d.get("name")}`,
-      `Company: ${d.get("company")}`,
-      `Email: ${d.get("email")}`,
-      `Phone: ${d.get("phone")}`,
-      `Preferred date: ${d.get("date") || "N/A"}`,
-      `Preferred time: ${d.get("time") || "N/A"}`,
-      `Preferred channel: ${d.get("channel")}`,
-      "",
-      `What to automate: ${d.get("usecase") || "N/A"}`,
-    ].join("\n");
-    window.location.href = `mailto:hello@fiaxe.com?subject=${encodeURIComponent(
-      `Discovery call, ${d.get("company") || d.get("name")}`,
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const form = e.currentTarget;
+    const payload = Object.fromEntries(new FormData(form).entries());
+
+    setStatus("sending");
+    try {
+      // Posts to our own API route, which forwards to the n8n webhook
+      // server-side (avoids the browser CORS block).
+      const res = await fetch("/api/book-demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`Request failed with ${res.status}`);
+      setStatus("success");
+      form.reset();
+    } catch (err) {
+      console.error("Book demo submission failed:", err);
+      setStatus("error");
+    }
   }
 
   return (
@@ -114,13 +119,20 @@ export function BookDemo() {
             </label>
             <button
               type="submit"
-              className="mt-1 rounded-xl bg-blue px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase transition-colors hover:bg-blue-bright"
+              disabled={status === "sending"}
+              className="mt-1 rounded-xl bg-blue px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase transition-colors hover:bg-blue-bright disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Book my discovery call →
+              {status === "sending" ? "Booking…" : "Book my discovery call →"}
             </button>
-            {sent && (
+            {status === "success" && (
               <p className="text-center text-sm text-muted" role="status">
-                Opening your email client… if nothing happens, write to{" "}
+                Thanks — your call request is in.{" "}
+                <span className="text-cream">We&apos;ll be in touch shortly</span> to confirm a time.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-center text-sm text-muted" role="alert">
+                Something went wrong. Please try again, or write to{" "}
                 <a href="mailto:hello@fiaxe.com" className="text-cream underline underline-offset-4">
                   hello@fiaxe.com
                 </a>

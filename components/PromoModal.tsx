@@ -5,30 +5,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Waveform } from "./primitives";
 
-const STORAGE_KEY = "fiaxe_promo_seen";
-
 export function PromoModal() {
   const [open, setOpen] = useState(false);
 
-  // Show once per session, a moment after the page settles.
+  // Show every time the site is opened, a moment after the page settles.
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      if (sessionStorage.getItem(STORAGE_KEY)) return;
-    } catch {
-      /* sessionStorage unavailable */
-    }
-    const t = setTimeout(() => setOpen(true), 1600);
+    const t = setTimeout(() => setOpen(true), 900);
     return () => clearTimeout(t);
   }, []);
 
   function close() {
     setOpen(false);
-    try {
-      sessionStorage.setItem(STORAGE_KEY, "1");
-    } catch {
-      /* sessionStorage unavailable */
-    }
   }
 
   // Close on Escape and lock background scroll while open.
