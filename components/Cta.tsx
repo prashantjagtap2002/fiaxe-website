@@ -12,13 +12,24 @@ export function Cta() {
             <div className="flex justify-center">
               <Waveform bars={6} className="h-6" />
             </div>
-            <h2 className="mt-8 font-display text-4xl font-medium tracking-tight text-balance md:text-6xl">
+            <div className="mt-7 flex flex-wrap justify-center gap-2.5">
+              <span className="inline-flex items-center gap-2 rounded-full border border-blue/30 bg-blue/10 px-4 py-1.5 font-mono text-[11px] font-medium tracking-[0.12em] text-blue uppercase">
+                <span className="size-1.5 rounded-full bg-blue" />
+                First agent built free
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-blue/30 bg-blue/10 px-4 py-1.5 font-mono text-[11px] font-medium tracking-[0.12em] text-blue uppercase">
+                <span className="size-1.5 animate-pulse rounded-full bg-blue" />
+                First 100 minutes free
+              </span>
+            </div>
+            <h2 className="mt-6 font-display text-4xl font-medium tracking-tight text-balance md:text-6xl">
               Ready for voice AI that{" "}
               <span className="underline-bar">actually works?</span>
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">
               Book a free discovery call, we&apos;ll show you exactly how a custom Fiaxe agent
-              would handle your calls, leads, and bookings.
+              would handle your calls, leads, and bookings — then build your first agent free,
+              with your first 100 minutes on us.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
@@ -29,7 +40,7 @@ export function Cta() {
               </Link>
             </div>
             <p className="mt-8 font-mono text-[11px] tracking-wider text-faint uppercase">
-              Free · No commitment · 30 min call
+              First agent + 100 minutes free · No commitment · 30 min call
             </p>
           </div>
         </div>

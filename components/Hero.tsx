@@ -29,13 +29,13 @@ export function Hero() {
             className="mb-8"
           >
             <Link
-              href="/agents"
+              href="/book-demo"
               className="hero-copy group inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 py-1.5 pr-4 pl-1.5 text-sm text-white/90 backdrop-blur-md transition-colors hover:bg-white/20"
             >
               <span className="rounded-full bg-blue px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-[0.12em] text-white uppercase">
-                New
+                Free
               </span>
-              <span className="font-medium">Real-time voice agents in 28+ Indian languages</span>
+              <span className="font-medium">Book a call to claim your first 100 minutes free</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
                 <path d="m9 18 6-6-6-6" />
               </svg>
@@ -89,6 +89,24 @@ export function Hero() {
                 Hear the AI in Action
               </span>
             </Link>
+          </motion.div>
+
+          {/* launch offer — sits on the light part of the hero, so dark text */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="mt-7 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-2xl border border-line bg-ink px-5 py-3 text-sm shadow-sm"
+          >
+            <span className="flex items-center gap-2 font-medium text-cream">
+              <svg className="shrink-0 text-blue" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+              We build your first agent, free
+            </span>
+            <span className="hidden h-4 w-px bg-line-bright sm:block" />
+            <span className="flex items-center gap-2 font-medium text-cream">
+              <svg className="shrink-0 text-blue" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+              First 100 minutes free
+            </span>
           </motion.div>
 
           {/* metrics */}
