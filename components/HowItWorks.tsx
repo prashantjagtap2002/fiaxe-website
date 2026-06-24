@@ -110,7 +110,7 @@ export function HowItWorks() {
               key={m.id}
               onClick={() => setMode(m.id)}
               className={`px-6 py-3 font-mono text-xs tracking-[0.12em] uppercase transition-colors ${
-                mode === m.id ? "bg-cream text-white" : "bg-ink text-muted hover:text-cream"
+                mode === m.id ? "bg-cream text-canvas" : "bg-ink text-muted hover:text-cream"
               }`}
             >
               {m.label}

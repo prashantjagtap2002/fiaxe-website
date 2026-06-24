@@ -42,7 +42,7 @@ export default function CareersPage() {
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-20">
+      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
         <Reveal>
           <h2 className="mb-8 font-display text-3xl font-medium tracking-tight">Apply now</h2>
         </Reveal>

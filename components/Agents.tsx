@@ -2,7 +2,6 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { Kicker } from "./primitives";
 
 const DEFAULT_SAMPLE_SRC = "/sample-call.mp3";
 
@@ -195,13 +194,6 @@ export function Agents() {
 
   return (
     <section id="agents" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-      <div className="mb-10 flex items-center justify-between gap-4">
-        <Kicker label="Agent Library" />
-        <span className="hidden font-mono text-[10px] tracking-[0.16em] text-faint uppercase md:block">
-          Production-ready templates
-        </span>
-      </div>
-
       {/* industry filter, flat mono tabs */}
       <div className="mb-8 flex flex-wrap gap-x-6 gap-y-3 border-b border-line pb-4">
         {INDUSTRIES.map((ind) => (

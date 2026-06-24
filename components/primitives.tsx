@@ -70,15 +70,13 @@ export function CountUp({
   );
 }
 
-/* Soft section header: pill kicker, optional right meta, then title */
+/* Soft section header: title + optional copy */
 export function SectionHeading({
-  label,
   title,
   copy,
-  rightMeta,
 }: {
   index?: string;
-  label: string;
+  label?: string;
   title: ReactNode;
   copy?: string;
   rightMeta?: string;
@@ -87,17 +85,7 @@ export function SectionHeading({
   return (
     <div className="mb-12 md:mb-16">
       <Reveal>
-        <div className="flex items-center justify-between gap-4">
-          <Kicker label={label} />
-          {rightMeta && (
-            <span className="hidden font-mono text-[10px] tracking-[0.16em] text-faint uppercase md:block">
-              {rightMeta}
-            </span>
-          )}
-        </div>
-      </Reveal>
-      <Reveal delay={0.08}>
-        <h2 className="mt-7 max-w-3xl font-display text-4xl font-medium tracking-tight text-balance md:mt-9 md:text-5xl lg:text-[3.3rem] lg:leading-[1.07]">
+        <h2 className="max-w-3xl font-display text-4xl font-medium tracking-tight text-balance md:text-5xl lg:text-[3.3rem] lg:leading-[1.07]">
           {title}
         </h2>
       </Reveal>
@@ -110,16 +98,11 @@ export function SectionHeading({
   );
 }
 
-/* Pill-shaped eyebrow label with an accent dot */
-export function Kicker({ label, className = "" }: { label: string; className?: string }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-full border border-line bg-ink px-3.5 py-1.5 shadow-sm ${className}`}
-    >
-      <span className="size-1.5 rounded-full bg-blue" />
-      <span className="font-mono text-[10px] tracking-[0.16em] text-muted uppercase">{label}</span>
-    </span>
-  );
+/* Eyebrow pill removed by request — kept as a no-op so existing call sites
+   continue to type-check without rendering anything. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function Kicker(props: { label: string; className?: string }) {
+  return null;
 }
 
 /* Animated equalizer bars, the voice motif */

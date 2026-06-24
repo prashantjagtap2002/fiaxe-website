@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Reveal, Kicker } from "./primitives";
+import { Reveal } from "./primitives";
 
 type Testimonial = { quote: string; name: string; role: string; initials: string };
 
@@ -47,13 +47,10 @@ const MORE: Testimonial[] = [
 export function Testimonials() {
   const [lead, second] = TESTIMONIALS;
   return (
-    <section className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+    <section className="mx-auto max-w-7xl px-5 pt-24 pb-12 md:px-8 md:pt-32 md:pb-16">
       <div className="max-w-2xl">
-        <Reveal>
-          <Kicker label="In Their Words" />
-        </Reveal>
         <Reveal delay={0.06}>
-          <h2 className="mt-6 font-display text-4xl font-medium tracking-tight text-balance md:text-5xl">
+          <h2 className="font-display text-4xl font-medium tracking-tight text-balance md:text-5xl">
             What our customers <span className="underline-bar">tell us.</span>
           </h2>
         </Reveal>

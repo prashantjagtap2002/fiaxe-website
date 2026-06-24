@@ -42,7 +42,7 @@ function ScoreReveal({ score, delay }: { score: number; delay: number }) {
 
 const PIPELINE = [
   { name: "Priya Sharma", stage: "Qualified", score: 87, value: "₹2.4L" },
-  { name: "Arjun Mehta", stage: "Negotiation", score: 72, value: "₹5.1L" },
+  { name: "Arjun Mehta", stage: "Negotiation", score: 78, value: "₹5.1L" },
   { name: "Kavya Reddy", stage: "Follow-up", score: 64, value: "₹1.8L" },
 ];
 
@@ -129,7 +129,12 @@ function CrmMock() {
 
         {/* pipeline + analysis */}
         <div className="p-5">
-          <p className="mono-label mb-4">Calls → Pipeline</p>
+          <div className="mb-4 flex items-baseline justify-between">
+            <p className="mono-label">Calls → Pipeline</p>
+            <p className="font-mono text-[10px] tracking-wider text-faint">
+              3 leads · 12 calls today
+            </p>
+          </div>
           <div className="divide-y divide-line border-y border-line">
             {PIPELINE.map((p, i) => (
               <motion.div
@@ -153,10 +158,16 @@ function CrmMock() {
               </motion.div>
             ))}
           </div>
-          <p className="mt-4 font-mono text-[11px] leading-relaxed text-muted">
-            <span className="text-blue">AI ANALYSIS ·</span> High intent, asked about
-            EMI twice. Win probability 81%. Recommended: send pricing deck today.
-          </p>
+          <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3.5">
+            <p className="mono-label !text-[9px] text-blue">
+              AI Analysis · Priya Sharma
+            </p>
+            <p className="mt-2 font-mono text-[11px] leading-relaxed text-muted">
+              Asked about EMI twice — high intent. Win probability{" "}
+              <span className="text-cream">81%</span>. Recommended next step: send the
+              pricing deck today.
+            </p>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -216,7 +227,7 @@ export function CrmShowcase() {
             <Reveal delay={0.25}>
               <a
                 href="https://crm.fiaxe.com/signup"
-                className="mt-8 inline-block rounded-xl bg-cream px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase transition-colors hover:bg-blue"
+                className="mt-8 inline-block rounded-xl bg-cream px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-canvas uppercase transition-colors hover:bg-blue hover:text-white"
               >
                 Explore Fiaxe CRM →
               </a>

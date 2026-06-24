@@ -1,4 +1,4 @@
-import { Reveal, Kicker } from "./primitives";
+import { Reveal } from "./primitives";
 
 /* Hero stat band: a few proof points that frame what the agents deliver. */
 const STATS = [
@@ -14,10 +14,7 @@ export function AgentsHero() {
     <section className="relative pt-32 pb-4 md:pt-40">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
-          <Kicker label="AI Agents" />
-        </Reveal>
-        <Reveal delay={0.08}>
-          <h1 className="mt-7 max-w-4xl font-display text-5xl font-medium leading-[1.05] tracking-tight text-balance md:mt-9 md:text-[4rem]">
+          <h1 className="max-w-4xl font-display text-5xl font-medium leading-[1.05] tracking-tight text-balance md:text-[4rem]">
             Agents that do more <span className="underline-bar">than just talk.</span>
           </h1>
         </Reveal>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Reveal, Kicker } from "./primitives";
+import { Reveal } from "./primitives";
 
 type Pillar = { title: string; desc: string };
 
@@ -28,16 +28,13 @@ const PILLARS: Pillar[] = [
 
 export function WhatWeBuild() {
   return (
-    <section id="what-we-build" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+    <section id="what-we-build" className="mx-auto max-w-7xl px-5 pt-24 pb-12 md:px-8 md:pt-32 md:pb-16">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         {/* narrative column, centered against the taller list */}
         <div className="lg:col-span-5 lg:self-center">
           <div>
-            <Reveal>
-              <Kicker label="What We Build" />
-            </Reveal>
             <Reveal delay={0.06}>
-              <h2 className="mt-6 font-display text-4xl font-medium tracking-tight text-balance md:text-5xl">
+              <h2 className="font-display text-4xl font-medium tracking-tight text-balance md:text-5xl">
                 One custom voice agent.{" "}
                 <span className="underline-bar">Built around your business.</span>
               </h2>
@@ -74,9 +71,6 @@ export function WhatWeBuild() {
                     </h3>
                     <p className="mt-2 max-w-md text-[15px] leading-relaxed text-muted">{p.desc}</p>
                   </div>
-                  <span className="self-center pt-1 text-faint opacity-0 transition-all group-hover:translate-x-1 group-hover:text-blue group-hover:opacity-100">
-                    →
-                  </span>
                 </div>
               </Reveal>
             ))}

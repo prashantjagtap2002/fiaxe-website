@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Reveal, Kicker } from "./primitives";
+import { Reveal } from "./primitives";
 
 const FAQS: { q: string; a: string }[] = [
   {
@@ -38,16 +38,13 @@ const FAQS: { q: string; a: string }[] = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+    <section id="faq" className="mx-auto max-w-7xl px-5 pt-12 pb-8 md:px-8 md:pt-16 md:pb-10">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
         {/* sticky heading + nudge */}
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
-            <Reveal>
-              <Kicker label="FAQ" />
-            </Reveal>
             <Reveal delay={0.06}>
-              <h2 className="mt-6 font-display text-4xl font-medium tracking-tight text-balance md:text-5xl">
+              <h2 className="font-display text-4xl font-medium tracking-tight text-balance md:text-5xl">
                 Questions, <span className="underline-bar">answered.</span>
               </h2>
             </Reveal>

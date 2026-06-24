@@ -20,35 +20,31 @@ const fieldCls =
   "rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 text-sm text-cream outline-none transition-colors placeholder:text-faint focus:border-blue";
 const labelCls = "font-mono text-[10px] tracking-[0.12em] text-faint uppercase";
 
+type Status = "idle" | "sending" | "success" | "error";
+
 export function CareersForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
   const [fileName, setFileName] = useState<string>("");
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const d = new FormData(e.currentTarget);
-    const body = [
-      `Role: ${d.get("role")}`,
-      `Employment type: ${d.get("employmentType")}`,
-      `Name: ${d.get("name")}`,
-      `Email: ${d.get("email")}`,
-      `Phone: ${d.get("phone")}`,
-      `Current role: ${d.get("currentRole") || "N/A"}`,
-      `Current company: ${d.get("currentCompany") || "N/A"}`,
-      `Current CTC: ${d.get("currentCtc") || "N/A"}`,
-      `Expected CTC: ${d.get("expectedCtc") || "N/A"}`,
-      `Notice period: ${d.get("noticePeriod") || "N/A"}`,
-      "",
-      `Notes: ${d.get("notes") || "N/A"}`,
-      "",
-      fileName
-        ? `Resume to attach: ${fileName} (please attach the file to this email).`
-        : "Please attach your resume to this email.",
-    ].join("\n");
-    window.location.href = `mailto:careers@fiaxe.com?subject=${encodeURIComponent(
-      `Application, ${d.get("role")}, ${d.get("name")}`,
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    setStatus("sending");
+    try {
+      // Posts to our own API route, which forwards to the n8n webhook
+      // server-side (avoids the browser CORS block). FormData keeps the
+      // resume file; don't set Content-Type, the browser adds the boundary.
+      const res = await fetch("/api/careers", { method: "POST", body: data });
+      if (!res.ok) throw new Error(`Webhook responded with ${res.status}`);
+      setStatus("success");
+      form.reset();
+      setFileName("");
+    } catch (err) {
+      console.error("Careers form submission failed:", err);
+      setStatus("error");
+    }
   }
 
   return (
@@ -156,15 +152,21 @@ export function CareersForm() {
 
         <button
           type="submit"
-          className="mt-1 rounded-xl bg-blue px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase transition-colors hover:bg-blue-bright"
+          disabled={status === "sending"}
+          className="mt-1 rounded-xl bg-blue px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase transition-colors hover:bg-blue-bright disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Submit application →
+          {status === "sending" ? "Submitting…" : "Submit application →"}
         </button>
 
-        {sent && (
+        {status === "success" && (
           <p className="text-center text-sm text-muted" role="status">
-            Opening your email client to send the application. Don&apos;t forget to{" "}
-            <span className="text-cream">attach your resume</span> before sending, or email it to{" "}
+            Thanks, your application is in. <span className="text-cream">We&apos;ll be in touch</span>{" "}
+            if there&apos;s a fit.
+          </p>
+        )}
+        {status === "error" && (
+          <p className="text-center text-sm text-muted" role="alert">
+            Something went wrong sending your application. Please try again, or email it to{" "}
             <a href="mailto:careers@fiaxe.com" className="text-cream underline underline-offset-4">
               careers@fiaxe.com
             </a>
