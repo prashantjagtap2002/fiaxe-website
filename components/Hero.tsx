@@ -91,24 +91,6 @@ export function Hero() {
             </Link>
           </motion.div>
 
-          {/* launch offer — sits on the light part of the hero, so dark text */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-7 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-2xl border border-line bg-ink px-5 py-3 text-sm shadow-sm"
-          >
-            <span className="flex items-center gap-2 font-medium text-cream">
-              <svg className="shrink-0 text-blue" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-              We build your first agent, free
-            </span>
-            <span className="hidden h-4 w-px bg-line-bright sm:block" />
-            <span className="flex items-center gap-2 font-medium text-cream">
-              <svg className="shrink-0 text-blue" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-              First 100 minutes free
-            </span>
-          </motion.div>
-
           {/* metrics */}
           <motion.div
             initial={{ opacity: 0 }}

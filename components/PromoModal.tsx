@@ -86,7 +86,7 @@ export function PromoModal() {
               Your first agent + 100 minutes, <span className="underline-bar">free.</span>
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              Book a quick call and we&apos;ll build your first AI voice agent free — plus your
+              Book a quick call and we&apos;ll build your first AI voice agent free, plus your
               first 100 minutes of calls, on us.
             </p>
 

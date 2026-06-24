@@ -1,6 +1,6 @@
 import { Reveal, SectionHeading } from "./primitives";
 
-// Placeholder integration set — swap names/logos for the real partner list.
+// Placeholder integration set. Swap names/logos for the real partner list.
 const INTEGRATIONS = [
   "Zoho CRM",
   "n8n",

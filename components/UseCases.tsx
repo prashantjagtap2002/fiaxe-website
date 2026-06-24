@@ -1,6 +1,6 @@
 import { Reveal, SectionHeading } from "./primitives";
 
-// Placeholder copy — refine per real positioning.
+// Placeholder copy. Refine per real positioning.
 type UseCase = { industry: string; desc: string };
 
 const USE_CASES: UseCase[] = [

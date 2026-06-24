@@ -28,7 +28,7 @@ export function Cta() {
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">
               Book a free discovery call, we&apos;ll show you exactly how a custom Fiaxe agent
-              would handle your calls, leads, and bookings — then build your first agent free,
+              would handle your calls, leads, and bookings, then build your first agent free,
               with your first 100 minutes on us.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

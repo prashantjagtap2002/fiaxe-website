@@ -163,7 +163,7 @@ function CrmMock() {
               AI Analysis · Priya Sharma
             </p>
             <p className="mt-2 font-mono text-[11px] leading-relaxed text-muted">
-              Asked about EMI twice — high intent. Win probability{" "}
+              Asked about EMI twice, high intent. Win probability{" "}
               <span className="text-cream">81%</span>. Recommended next step: send the
               pricing deck today.
             </p>

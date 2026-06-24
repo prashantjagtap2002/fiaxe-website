@@ -6,7 +6,7 @@ const STEPS: Step[] = [
   {
     label: "Discovery",
     title: "Start with a real conversation",
-    desc: "A quick 30-minute chat to learn how your business handles calls today — and exactly where leads slip through the cracks.",
+    desc: "A quick 30-minute chat to learn how your business handles calls today, and exactly where leads slip through the cracks.",
     tag: "30 min · Free",
   },
   {
@@ -17,7 +17,7 @@ const STEPS: Step[] = [
   {
     label: "Build",
     title: "Build your agent from scratch",
-    desc: "A voice agent trained around how you actually work — your scripts, your tone, your edge cases. Never a generic template.",
+    desc: "A voice agent trained around how you actually work: your scripts, your tone, your edge cases. Never a generic template.",
   },
   {
     label: "Testing",
@@ -27,7 +27,7 @@ const STEPS: Step[] = [
   {
     label: "Go live",
     title: "Connect your number, switch it on",
-    desc: "We wire your agent to your phone number, calendar, and tools — then flip it live and it starts answering for you.",
+    desc: "We wire your agent to your phone number, calendar, and tools, then flip it live and it starts answering for you.",
     tag: "Live in ~7 days",
   },
   {
@@ -58,7 +58,7 @@ export function Process() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-5 text-lg leading-relaxed text-muted">
-            You don&apos;t get handed a tool and left to figure it out. We do the whole thing —
+            You don&apos;t get handed a tool and left to figure it out. We do the whole thing:
             learn your business, build your agent, launch it, and keep it sharp over time.
           </p>
         </Reveal>

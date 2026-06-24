@@ -156,7 +156,7 @@ export function AgentsStrip() {
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
 
-  // drag-to-scroll state (mouse / pen only — touch uses native momentum)
+  // drag-to-scroll state (mouse / pen only; touch uses native momentum)
   const drag = useRef<{ x: number; left: number; id: number; moved: boolean } | null>(null);
   const justDragged = useRef(false);
 

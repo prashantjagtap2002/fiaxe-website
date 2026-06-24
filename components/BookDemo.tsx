@@ -126,7 +126,7 @@ export function BookDemo() {
             </button>
             {status === "success" && (
               <p className="text-center text-sm text-muted" role="status">
-                Thanks — your call request is in.{" "}
+                Thanks, your call request is in.{" "}
                 <span className="text-cream">We&apos;ll be in touch shortly</span> to confirm a time.
               </p>
             )}

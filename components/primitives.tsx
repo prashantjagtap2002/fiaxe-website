@@ -98,7 +98,7 @@ export function SectionHeading({
   );
 }
 
-/* Eyebrow pill removed by request — kept as a no-op so existing call sites
+/* Eyebrow pill removed by request, kept as a no-op so existing call sites
    continue to type-check without rendering anything. */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Kicker(props: { label: string; className?: string }) {
