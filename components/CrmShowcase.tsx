@@ -41,9 +41,9 @@ function ScoreReveal({ score, delay }: { score: number; delay: number }) {
 }
 
 const PIPELINE = [
-  { name: "Priya Sharma", stage: "Qualified", score: 87, value: "₹2.4L" },
-  { name: "Arjun Mehta", stage: "Negotiation", score: 78, value: "₹5.1L" },
-  { name: "Kavya Reddy", stage: "Follow-up", score: 64, value: "₹1.8L" },
+  { name: "Priya Sharma", stage: "Qualified", score: 87, calls: 3, talk: "6:12" },
+  { name: "Arjun Mehta", stage: "Negotiation", score: 78, calls: 2, talk: "4:30" },
+  { name: "Kavya Reddy", stage: "Follow-up", score: 64, calls: 1, talk: "2:48" },
 ];
 
 const WORKFLOW = [
@@ -153,7 +153,10 @@ function CrmMock() {
                 </div>
                 <div className="flex items-center gap-5">
                   <ScoreReveal score={p.score} delay={0.3 + i * 0.4} />
-                  <span className="font-mono text-[13px] text-cream">{p.value}</span>
+                  <span className="w-[88px] text-right font-mono text-[12px] whitespace-nowrap tabular-nums">
+                    <span className="text-faint">{p.calls} {p.calls === 1 ? "call" : "calls"} · </span>
+                    <span className="text-cream">{p.talk}</span>
+                  </span>
                 </div>
               </motion.div>
             ))}
