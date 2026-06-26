@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
@@ -25,9 +25,43 @@ export function Nav() {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Which in-page section is currently in view (home route only).
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const pathname = usePathname();
 
-  useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
+  // Scrollspy: highlight the nav link for the section the reader is on. The
+  // active section is the last one whose top has scrolled past a trigger line
+  // ~a third down the viewport. Because it tracks the *last passed* section,
+  // the highlight holds on "How It Works" through the untracked stretch below
+  // it and only jumps to "FAQ" once FAQ reaches the line — no empty gap.
+  const computeActive = useCallback(() => {
+    if (pathname !== "/") return;
+    const trigger = window.innerHeight * 0.3;
+    let current: string | null = null;
+    for (const l of SCROLL_LINKS) {
+      const id = l.href.split("#")[1];
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= trigger) current = id;
+    }
+    setActiveSection(current);
+  }, [pathname]);
+
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setScrolled(v > 24);
+    computeActive();
+  });
+
+  // initial position + viewport resizes (rAF keeps the first setState out of
+  // the effect body so it doesn't fire a synchronous render cascade)
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const raf = requestAnimationFrame(computeActive);
+    window.addEventListener("resize", computeActive);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", computeActive);
+    };
+  }, [pathname, computeActive]);
 
   // The home route has a dark photographic hero behind the (transparent) nav.
   // While we're over it, the nav contents render white; once scrolled into the
@@ -63,15 +97,25 @@ export function Nav() {
         {/* full nav, only on very wide screens given the link count */}
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center xl:flex">
           {[...SCROLL_LINKS, ...PAGE_LINKS].map((l) => {
-            const active = pathname === l.href;
+            const sectionId = l.href.includes("#") ? l.href.split("#")[1] : null;
+            const active = sectionId
+              ? pathname === "/" && activeSection === sectionId
+              : pathname === l.href;
             return (
               <Link
                 key={l.href}
                 href={l.href}
                 aria-current={active ? "page" : undefined}
-                className={`${linkBase} ${active ? "text-blue" : linkColor}`}
+                className={`relative ${linkBase} ${active ? "text-blue" : linkColor}`}
               >
                 {l.label}
+                {active && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-blue"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  />
+                )}
               </Link>
             );
           })}
@@ -109,16 +153,22 @@ export function Nav() {
             Home
           </Link>
           <p className="mt-3 px-2 font-mono text-[10px] tracking-[0.2em] text-faint uppercase">On this page</p>
-          {SCROLL_LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="block px-2 py-2.5 text-[15px] text-muted hover:text-cream"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {SCROLL_LINKS.map((l) => {
+            const active = pathname === "/" && activeSection === l.href.split("#")[1];
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                aria-current={active ? "page" : undefined}
+                className={`block px-2 py-2.5 text-[15px] ${
+                  active ? "font-medium text-blue" : "text-muted hover:text-cream"
+                }`}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
           <p className="mt-3 px-2 font-mono text-[10px] tracking-[0.2em] text-faint uppercase">More</p>
           {PAGE_LINKS.map((l) => {
             const active = pathname === l.href;

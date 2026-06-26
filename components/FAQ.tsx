@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
 import { Reveal } from "./primitives";
 
 const FAQS: { q: string; a: string }[] = [
@@ -37,6 +41,9 @@ const FAQS: { q: string; a: string }[] = [
 ];
 
 export function FAQ() {
+  const [open, setOpen] = useState<number | null>(0);
+  const reduce = useReducedMotion();
+
   return (
     <section id="faq" className="mx-auto max-w-7xl px-5 pt-12 pb-8 md:px-8 md:pt-16 md:pb-10">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
@@ -68,19 +75,45 @@ export function FAQ() {
         <div className="lg:col-span-8">
           <Reveal>
             <div className="border-t border-line">
-              {FAQS.map((f) => (
-                <details key={f.q} className="group border-b border-line">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 transition-colors hover:text-blue">
-                    <span className="font-display text-base font-medium tracking-tight md:text-lg">{f.q}</span>
-                    <span className="grid size-6 shrink-0 place-items-center text-faint transition-transform duration-300 group-open:rotate-45">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-                        <path d="M12 5v14M5 12h14" />
-                      </svg>
-                    </span>
-                  </summary>
-                  <p className="max-w-2xl pb-6 text-sm leading-relaxed text-muted">{f.a}</p>
-                </details>
-              ))}
+              {FAQS.map((f, i) => {
+                const isOpen = open === i;
+                return (
+                  <div key={f.q} className="border-b border-line">
+                    <button
+                      type="button"
+                      id={`faq-q-${i}`}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-a-${i}`}
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      className={`flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left transition-colors hover:text-blue ${
+                        isOpen ? "text-blue" : ""
+                      }`}
+                    >
+                      <span className="font-display text-base font-medium tracking-tight md:text-lg">{f.q}</span>
+                      <span
+                        className={`grid size-6 shrink-0 place-items-center transition-transform duration-300 ${
+                          isOpen ? "rotate-45 text-blue" : "text-faint"
+                        }`}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                          <path d="M12 5v14M5 12h14" />
+                        </svg>
+                      </span>
+                    </button>
+                    <motion.div
+                      id={`faq-a-${i}`}
+                      role="region"
+                      aria-labelledby={`faq-q-${i}`}
+                      initial={false}
+                      animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                      transition={reduce ? { duration: 0 } : { duration: 0.34, ease: [0.22, 0.61, 0.24, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="max-w-2xl pb-6 text-sm leading-relaxed text-muted">{f.a}</p>
+                    </motion.div>
+                  </div>
+                );
+              })}
             </div>
           </Reveal>
         </div>

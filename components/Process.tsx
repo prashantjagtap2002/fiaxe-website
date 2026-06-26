@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 import { Reveal, Waveform } from "./primitives";
 
 type Step = { label: string; title: string; desc: string; tag?: string };
@@ -37,6 +40,57 @@ const STEPS: Step[] = [
   },
 ];
 
+/* A process card with a soft accent glow that tracks the cursor, layered
+   under the existing hover-lift. Pure decoration — invisible without hover,
+   so touch devices simply never see it. */
+function StepCard({ step, index }: { step: Step; index: number }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const glow = useMotionTemplate`radial-gradient(280px circle at ${x}px ${y}px, color-mix(in oklab, var(--blue) 14%, transparent), transparent 72%)`;
+
+  function onMove(e: React.MouseEvent<HTMLElement>) {
+    const r = e.currentTarget.getBoundingClientRect();
+    x.set(e.clientX - r.left);
+    y.set(e.clientY - r.top);
+  }
+
+  return (
+    <article
+      onMouseMove={onMove}
+      className="relative flex flex-1 flex-col overflow-hidden rounded-3xl border border-line bg-ink p-6 shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:border-blue/40 group-hover:shadow-md"
+    >
+      {/* cursor-tracking spotlight, faded in only while hovering */}
+      <motion.span
+        aria-hidden
+        style={{ background: glow }}
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
+
+      {/* faint ghost number, tucked into the upper-right corner */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -top-4 right-3 font-display text-[5.5rem] leading-none font-semibold text-cream/[0.045] transition-colors duration-300 select-none group-hover:text-blue/10"
+      >
+        {index + 1}
+      </span>
+
+      <span className="relative font-mono text-[11px] tracking-[0.18em] text-blue uppercase">
+        {step.label}
+      </span>
+
+      <h3 className="relative mt-3 font-display text-lg font-medium tracking-tight text-balance">
+        {step.title}
+      </h3>
+      <p className="relative mt-2.5 text-[13px] leading-relaxed text-muted">{step.desc}</p>
+
+      {/* voice motif, pinned to the bottom on tagged steps */}
+      {step.tag && (
+        <Waveform className="relative mt-auto h-3 pt-4" barClassName="bg-blue/60" />
+      )}
+    </article>
+  );
+}
+
 export function Process() {
   return (
     <section
@@ -64,50 +118,30 @@ export function Process() {
         </Reveal>
       </div>
 
-      {/* all six steps, no scrolling */}
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 md:mt-14 lg:grid-cols-3">
+      {/* scroll hint, only meaningful while the row overflows (below lg) */}
+      <Reveal delay={0.12}>
+        <span className="mt-10 mb-5 hidden font-mono text-[10px] tracking-[0.16em] text-faint uppercase max-lg:inline-flex md:mt-12">
+          ← Swipe through the steps →
+        </span>
+      </Reveal>
+
+      {/* one horizontal row of step cards: all six sit in a single row on lg;
+          below that the row scrolls horizontally (snap), so it never folds
+          back into a grid. */}
+      <ol className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pt-2 pb-3 max-lg:mt-0 md:-mx-8 md:px-8 lg:mx-0 lg:mt-14 lg:grid lg:grid-cols-6 lg:overflow-visible lg:px-0">
         {STEPS.map((s, i) => (
-          <Reveal key={s.title} delay={i * 0.05}>
-            <article className="group relative flex h-full min-h-[256px] flex-col overflow-hidden rounded-3xl border border-line bg-ink p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue/40 hover:shadow-md">
-              {/* faint ghost number, tucked into the upper-right corner */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -top-3 right-4 font-display text-[6.5rem] leading-none font-semibold text-cream/[0.045] select-none"
-              >
-                {i + 1}
-              </span>
-
-              {/* top row */}
-              <div className="relative flex items-center justify-between">
-                <span className="grid size-11 place-items-center rounded-full border border-line-bright bg-surface-2 font-mono text-sm font-semibold text-blue transition-colors duration-300 group-hover:border-blue group-hover:bg-blue group-hover:text-white">
-                  0{i + 1}
-                </span>
-                {s.tag && (
-                  <span className="relative rounded-full border border-line bg-surface px-3 py-1 font-mono text-[9px] tracking-[0.12em] whitespace-nowrap text-faint uppercase">
-                    {s.tag}
-                  </span>
-                )}
-              </div>
-
-              {/* text, top-aligned so every card lines up */}
-              <div className="relative mt-9">
-                <span className="font-mono text-[11px] tracking-[0.18em] text-blue uppercase">
-                  {s.label}
-                </span>
-                <h3 className="mt-2.5 font-display text-xl font-medium tracking-tight text-balance">
-                  {s.title}
-                </h3>
-                <p className="mt-2.5 text-[13.5px] leading-relaxed text-muted">{s.desc}</p>
-              </div>
-
-              {/* voice motif, pinned to the bottom on tagged steps */}
-              {s.tag && (
-                <Waveform className="relative mt-auto h-3" barClassName="bg-blue/60" />
-              )}
-            </article>
+          <Reveal
+            key={s.title}
+            delay={i * 0.05}
+            className="flex w-[80%] shrink-0 snap-start flex-col sm:w-[46%] md:w-[31.5%] lg:w-auto"
+          >
+            <li className="group relative flex flex-1 list-none flex-col">
+              {/* the card, kept in the format you liked */}
+              <StepCard step={s} index={i} />
+            </li>
           </Reveal>
         ))}
-      </div>
+      </ol>
     </section>
   );
 }
