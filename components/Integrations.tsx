@@ -1,5 +1,39 @@
 import { Reveal, SectionHeading } from "./primitives";
 
+// One uniform rounded tile. The fixed tile + fixed icon box normalises the
+// optical size of logos whose glyphs fill their viewBox very differently.
+function IconTile({ name, color, path }: Integration) {
+  return (
+    <div
+      title={name}
+      aria-label={name}
+      className="flex size-16 shrink-0 items-center justify-center rounded-2xl border border-line bg-ink-2 transition-colors hover:bg-surface-2"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="size-7" style={{ color }}>
+        <path d={path} fill="currentColor" />
+      </svg>
+    </div>
+  );
+}
+
+// A single marquee row. `reverse` makes it drift right instead of left.
+// The row is duplicated so the -50% translate loops seamlessly.
+function MarqueeRow({ items, reverse }: { items: Integration[]; reverse?: boolean }) {
+  return (
+    <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+      <div
+        className={`flex shrink-0 items-center gap-5 pr-5 ${
+          reverse ? "animate-marquee-reverse" : "animate-marquee"
+        }`}
+      >
+        {[...items, ...items].map((it, i) => (
+          <IconTile key={`${it.name}-${i}`} {...it} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Brand-coloured logos. Most paths come from Simple Icons (CC0); Exotel and
 // Webhooks aren't in that set, so they use representative phone/link glyphs.
 type Integration = { name: string; color: string; path: string };
@@ -83,28 +117,15 @@ export function Integrations() {
           copy="Calls, outcomes, and data flow straight into your CRM, calendar, and messaging, no manual exports, no copy-paste."
         />
 
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3 lg:grid-cols-4">
-          {INTEGRATIONS.map(({ name, color, path }, i) => (
-            <Reveal key={name} delay={(i % 4) * 0.05}>
-              <div className="group flex h-full min-h-[5.5rem] items-center justify-center gap-3 bg-ink px-4 py-6 text-center transition-colors hover:bg-ink-2">
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  className="size-5 shrink-0 opacity-90 transition-opacity group-hover:opacity-100"
-                  style={{ color }}
-                >
-                  <path d={path} fill="currentColor" />
-                </svg>
-                <span className="font-display text-lg font-medium tracking-tight text-faint transition-colors group-hover:text-cream">
-                  {name}
-                </span>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal>
+          <div className="flex flex-col gap-5">
+            <MarqueeRow items={INTEGRATIONS.slice(0, 6)} reverse />
+            <MarqueeRow items={INTEGRATIONS.slice(6)} />
+          </div>
+        </Reveal>
 
         <Reveal delay={0.1}>
-          <p className="mt-6 font-mono text-[11px] tracking-[0.14em] text-faint uppercase">
+          <p className="mt-8 text-center font-mono text-[11px] tracking-[0.14em] text-faint uppercase">
             + Custom integrations on request via API & webhooks
           </p>
         </Reveal>
