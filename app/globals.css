@@ -19,7 +19,7 @@
 
   --font-display: var(--font-inter), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-jb), ui-monospace, monospace;
+  --font-mono: var(--font-inter), system-ui, sans-serif;
 }
 
 @theme {
