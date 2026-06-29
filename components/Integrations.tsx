@@ -20,7 +20,7 @@ function IconTile({ name, color, path }: Integration) {
 // The row is duplicated so the -50% translate loops seamlessly.
 function MarqueeRow({ items, reverse }: { items: Integration[]; reverse?: boolean }) {
   return (
-    <div className="relative mx-auto flex w-full max-w-[44rem] overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+    <div className="relative mx-auto flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
       <div
         className={`flex shrink-0 items-center gap-6 pr-6 ${
           reverse ? "animate-marquee-reverse" : "animate-marquee"
