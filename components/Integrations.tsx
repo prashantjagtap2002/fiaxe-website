@@ -7,9 +7,9 @@ function IconTile({ name, color, path }: Integration) {
     <div
       title={name}
       aria-label={name}
-      className="flex size-16 shrink-0 items-center justify-center rounded-2xl border border-line bg-ink-2 transition-colors hover:bg-surface-2"
+      className="flex size-24 shrink-0 items-center justify-center rounded-2xl border border-line bg-ink-2 transition-colors hover:bg-surface-2"
     >
-      <svg viewBox="0 0 24 24" aria-hidden="true" className="size-7" style={{ color }}>
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="size-11" style={{ color }}>
         <path d={path} fill="currentColor" />
       </svg>
     </div>
@@ -20,9 +20,9 @@ function IconTile({ name, color, path }: Integration) {
 // The row is duplicated so the -50% translate loops seamlessly.
 function MarqueeRow({ items, reverse }: { items: Integration[]; reverse?: boolean }) {
   return (
-    <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+    <div className="relative mx-auto flex w-full max-w-[44rem] overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
       <div
-        className={`flex shrink-0 items-center gap-5 pr-5 ${
+        className={`flex shrink-0 items-center gap-6 pr-6 ${
           reverse ? "animate-marquee-reverse" : "animate-marquee"
         }`}
       >
