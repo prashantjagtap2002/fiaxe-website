@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# source recordings (the site uses the normalized copies in /public/recordings)
+/Recordings/

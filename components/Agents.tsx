@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-const DEFAULT_SAMPLE_SRC = "/sample-call.mp3";
+const DEFAULT_SAMPLE_SRC = "/recordings/customer-support.wav";
 
 export type AgentTemplate = {
   name: string;
@@ -21,54 +21,63 @@ export const AGENTS: AgentTemplate[] = [
     languages: "en · hi",
     desc: "Answers every inbound call 24/7, FAQs, order status, triage and escalation, without hold music.",
     industries: ["Ecommerce", "BFSI", "Hospitality", "EdTech"],
+    sample: "/recordings/customer-support.wav",
   },
   {
     name: "Cart Abandonment Agent",
     languages: "en · hinglish",
     desc: "Calls shoppers minutes after they abandon a cart, answers objections, applies coupons, and recovers the sale.",
     industries: ["Ecommerce"],
+    sample: "/recordings/cart-recovery.wav",
   },
   {
     name: "COD Confirmation Agent",
     languages: "en · hi · ta",
     desc: "Confirms cash-on-delivery orders and handles last-mile logistics tasks, cutting RTO losses at scale.",
     industries: ["Ecommerce"],
+    sample: "/recordings/cod.wav",
   },
   {
     name: "Recruitment Agent",
     languages: "en",
     desc: "Screens, interviews and shortlists candidates at scale, structured insights from every conversation.",
     industries: ["Recruitment", "EdTech"],
+    sample: "/recordings/recruitment.wav",
   },
   {
     name: "Collections Agent",
     languages: "en · hi · te",
     desc: "Runs polite, compliant payment reminder campaigns with promise-to-pay capture synced to your CRM.",
     industries: ["BFSI", "Ecommerce"],
+    sample: "/recordings/collections.wav",
   },
   {
     name: "Appointment Agent",
     languages: "en · hi",
     desc: "Books, confirms and reschedules appointments, reduces no-shows for clinics, salons and campuses.",
     industries: ["HealthTech", "Hospitality", "EdTech"],
+    sample: "/recordings/wedding.wav",
   },
   {
     name: "Lead Qualification Agent",
     languages: "en · hi · hinglish",
     desc: "Calls new leads instantly, scores intent, captures budget and timeline, and routes hot prospects to your team.",
     industries: ["BFSI", "EdTech", "Ecommerce"],
+    sample: "/recordings/lead-qualification.wav",
   },
   {
     name: "Outbound Sales Agent",
     languages: "en · hi · mr",
     desc: "Runs full outbound campaigns, pitches offers, handles objections and books demos straight into your calendar.",
     industries: ["Ecommerce", "BFSI", "EdTech"],
+    sample: "/recordings/lead-qualification.wav",
   },
   {
     name: "Feedback & Survey Agent",
     languages: "en · hi · ta · te",
     desc: "Collects post-purchase feedback and CSAT surveys at scale, tagging sentiment and flagging detractors in real time.",
     industries: ["Ecommerce", "Hospitality", "HealthTech"],
+    sample: "/recordings/customer-support.wav",
   },
 ];
 
