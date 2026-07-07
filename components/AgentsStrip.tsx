@@ -203,19 +203,25 @@ export function AgentsStrip() {
     if (e.pointerType === "touch") return; // let native scroll handle touch
     const track = trackRef.current;
     if (!track) return;
+    // Record the gesture start, but DON'T capture the pointer yet. Capturing
+    // here retargets the trailing `click` to the track, so a plain click never
+    // reaches the card and play never fires. Capture only once a real drag
+    // begins (see onPointerMove).
     drag.current = { x: e.clientX, left: track.scrollLeft, id: e.pointerId, moved: false };
-    track.setPointerCapture(e.pointerId);
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
     const track = trackRef.current;
     if (!track || !drag.current) return;
     const dx = e.clientX - drag.current.x;
-    if (Math.abs(dx) > 6) {
+    if (!drag.current.moved && Math.abs(dx) > 6) {
+      // A genuine drag has started — capture now so we keep receiving moves
+      // even if the pointer leaves the track mid-drag.
       drag.current.moved = true;
+      track.setPointerCapture(drag.current.id);
       track.classList.add("cursor-grabbing");
     }
-    track.scrollLeft = drag.current.left - dx;
+    if (drag.current.moved) track.scrollLeft = drag.current.left - dx;
   };
 
   const endDrag = () => {
@@ -223,7 +229,7 @@ export function AgentsStrip() {
     if (!drag.current) return;
     if (track) {
       try {
-        track.releasePointerCapture(drag.current.id);
+        if (track.hasPointerCapture(drag.current.id)) track.releasePointerCapture(drag.current.id);
       } catch {
         /* noop */
       }
