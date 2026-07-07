@@ -66,9 +66,9 @@ export const AGENTS: AgentTemplate[] = [
     sample: "/recordings/lead-qualification.wav",
   },
   {
-    name: "Inbound Sales Agent",
+    name: "Outbound Sales Agent",
     languages: "en · hi · mr",
-    desc: "Picks up every inbound sales call instantly, pitches the right plan, handles objections and books demos straight into your calendar.",
+    desc: "Runs full outbound campaigns, pitches offers, handles objections and books demos straight into your calendar.",
     industries: ["Ecommerce", "BFSI", "EdTech"],
     sample: "/recordings/weirdo.wav",
   },
