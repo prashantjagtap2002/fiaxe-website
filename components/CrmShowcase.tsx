@@ -231,7 +231,7 @@ export function CrmShowcase() {
             </div>
             <Reveal delay={0.25}>
               <a
-                href="https://crm.fiaxe.com/signup"
+                href="/book-demo"
                 className="mt-8 inline-block rounded-xl bg-cream px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-canvas uppercase transition-colors hover:bg-blue hover:text-white"
               >
                 Explore Fiaxe CRM →

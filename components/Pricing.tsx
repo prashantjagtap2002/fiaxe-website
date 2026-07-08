@@ -3,10 +3,10 @@
 import { Reveal, SectionHeading } from "./primitives";
 
 const TIERS = [
-  { name: "Starter", rate: "₹8", minutes: "5,000", desc: "For teams validating their first voice agent." },
-  { name: "Grow", rate: "₹7.5", minutes: "10,000", desc: "For growing teams running steady call volumes." },
-  { name: "Pro", rate: "₹6.5", minutes: "30,000", desc: "For businesses scaling campaigns in production." },
-  { name: "Enterprise", rate: "₹6", minutes: "50,000", desc: "For enterprise-scale calling operations." },
+  { name: "Starter", rate: "₹7", minutes: "5,000", desc: "For teams validating their first voice agent." },
+  { name: "Grow", rate: "₹6.5", minutes: "10,000", desc: "For growing teams running steady call volumes." },
+  { name: "Pro", rate: "₹6", minutes: "30,000", desc: "For businesses scaling campaigns in production." },
+  { name: "Enterprise", rate: "₹5.5", minutes: "50,000", desc: "For enterprise-scale calling operations." },
 ];
 
 const INCLUDED = [

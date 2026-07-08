@@ -10,8 +10,14 @@ export function PromoModal() {
 
   // Show every time the site is opened, a moment after the page settles.
   useEffect(() => {
-    const t = setTimeout(() => setOpen(true), 900);
-    return () => clearTimeout(t);
+    const hasSeenModal = localStorage.getItem("hasSeenPromoModal");
+    if (!hasSeenModal) {
+      const t = setTimeout(() => {
+        setOpen(true);
+        localStorage.setItem("hasSeenPromoModal", "true");
+      }, 4500);
+      return () => clearTimeout(t);
+    }
   }, []);
 
   function close() {
