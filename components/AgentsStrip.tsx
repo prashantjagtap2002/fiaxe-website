@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { SectionHeading, Reveal } from "./primitives";
-import { AGENTS, type AgentTemplate } from "./Agents";
+import { AGENTS, timedWords, activeWordIndex, type AgentTemplate } from "./Agents";
 
 const DEFAULT_SAMPLE_SRC = "/sample-call.mp3";
 const GAP = 16; // matches `gap-4` on the track (px)
@@ -23,13 +23,39 @@ function AgentRow({
   onActivate: (name: string | null) => void;
 }) {
   const [playing, setPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const transcriptRef = useRef<HTMLDivElement | null>(null);
+  const activeWordRef = useRef<HTMLSpanElement | null>(null);
+
+  const words = timedWords(agent.transcript, duration);
+  // Index of the word currently being "spoken", derived from real audio timing.
+  const activeIndex = Math.max(0, activeWordIndex(words, currentTime));
+  const VISIBLE_LINES = 3;
 
   // Only one agent plays at a time, pause this row when another takes over.
   useEffect(() => {
     const audio = audioRef.current;
     if (audio && !isActive && !audio.paused) audio.pause();
   }, [isActive]);
+
+  // Keep the spoken word in view — the transcript scrolls a full line at a
+  // time so it never clips mid-line, and moves forward as the voice does.
+  // Note: a word span's own offsetHeight is just its glyph box, not the line
+  // box — the real per-line spacing is the paragraph's computed line-height.
+  useEffect(() => {
+    if (!playing) return;
+    const container = transcriptRef.current;
+    const word = activeWordRef.current;
+    if (!container || !word || !word.parentElement) return;
+    const lineHeight = parseFloat(getComputedStyle(word.parentElement).lineHeight);
+    if (!lineHeight) return;
+    container.style.height = `${VISIBLE_LINES * lineHeight}px`;
+    const currentLine = Math.round(word.offsetTop / lineHeight);
+    const targetLine = Math.max(0, currentLine - VISIBLE_LINES + 1);
+    container.scrollTo({ top: targetLine * lineHeight, behavior: "smooth" });
+  }, [activeIndex, playing]);
 
   function togglePlay() {
     const audio = audioRef.current;
@@ -93,6 +119,36 @@ function AgentRow({
 
       <p className="mt-4 flex-1 text-[13px] leading-relaxed text-muted">{agent.desc}</p>
 
+      {/* live transcript — drops in on play, scrolls a full line at a time with the voice */}
+      <div
+        className={`grid transition-all duration-300 ease-out ${
+          playing ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden rounded-xl border border-line bg-canvas p-3">
+          <div ref={transcriptRef} className="relative h-[53.625px] overflow-hidden">
+            <p className="font-mono text-[11px] leading-relaxed">
+              <span className="text-blue">agent ›</span>{" "}
+              {words.map((word, i) => (
+                <span
+                  key={i}
+                  ref={i === activeIndex ? activeWordRef : undefined}
+                  className={`transition-colors duration-200 ${
+                    i === activeIndex
+                      ? "rounded bg-blue/15 text-cream"
+                      : i < activeIndex
+                        ? "text-cream"
+                        : "text-faint"
+                  }`}
+                >
+                  {word.text}{" "}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
         <span className="font-mono text-[10px] tracking-wider text-faint uppercase">
           {agent.industries.slice(0, 2).join(" · ")}
@@ -108,9 +164,15 @@ function AgentRow({
         preload="none"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
+        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration || 0)}
+        onTimeUpdate={(e) => {
+          setCurrentTime(e.currentTarget.currentTime);
+          if (!duration && e.currentTarget.duration) setDuration(e.currentTarget.duration);
+        }}
         onEnded={() => {
           setPlaying(false);
           onActivate(null);
+          setCurrentTime(0);
         }}
       />
     </button>
