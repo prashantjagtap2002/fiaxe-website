@@ -84,6 +84,20 @@ export default async function BlogPostPage({
         </div>
       </article>
 
+      {post.image && (
+        <Reveal delay={0.18}>
+          <div className="mx-auto max-w-5xl px-5 md:px-8 mb-12">
+            <div className="overflow-hidden rounded-3xl border border-line bg-surface">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="h-[300px] w-full object-cover md:h-[500px]"
+              />
+            </div>
+          </div>
+        </Reveal>
+      )}
+
       <section className="mx-auto max-w-3xl px-5 py-12 md:px-8 md:py-16">
         <Reveal>
           <div className="space-y-6 border-t border-line pt-10 text-[17px] leading-relaxed text-cream/90">
