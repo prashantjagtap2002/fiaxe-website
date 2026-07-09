@@ -17,6 +17,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "AI agents", href: "/agents" },
       { label: "Industries", href: "/customer-stories#industries" },
       { label: "Pricing", href: "/pricing" },
+      { label: "Blog", href: "/blog" },
       { label: "Live demo", href: "/#live-demo" },
       { label: "Fiaxe CRM", href: "/#crm" },
     ],
