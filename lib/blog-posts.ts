@@ -5,6 +5,7 @@ export type BlogPost = {
   category: string;
   date: string; // ISO
   readTime: string;
+  image?: string;
   content: string[];
 };
 
@@ -17,6 +18,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Industry",
     date: "2026-06-02",
     readTime: "5 min read",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
     content: [
       "Across the businesses we work with, one pattern shows up again and again: the phone rings the most exactly when there's no one free to answer it. Lunch hour, closing time, the ten minutes after a marketing push lands. Those are also, reliably, the moments a lead is most likely to hang up and call the next name on their list.",
       "We looked at call logs across real estate, healthcare, and education customers before they went live with a Fiaxe agent. The pattern was consistent: 20 to 35% of inbound calls went unanswered during business hours, and after-hours volume was almost entirely missed. For a business paying to generate those calls through ads, referrals, or walk-in interest, that's a straight leak in the funnel, not a soft one.",
@@ -33,6 +35,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Product",
     date: "2026-05-19",
     readTime: "6 min read",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
     content: [
       "People assume the hard part of a voice agent is the voice. Getting speech to sound natural in Hindi, English, and half a dozen regional languages is genuinely hard, but it's also the part that's improved the fastest over the last two years. The part that's still hard, and the part we spend most of our engineering time on, is holding the thread of a real conversation.",
       "A phone call doesn't move in a straight line. Someone calls about a 2BHK, mentions their budget halfway through, changes their mind about the locality, then asks if site visits happen on Sundays. A script-based IVR falls apart the moment a caller says something it didn't anticipate. A Fiaxe agent is built to track intent across the whole call, not just the current turn, so a detail mentioned two minutes ago still matters when it's relevant again.",
@@ -49,6 +52,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Product",
     date: "2026-04-27",
     readTime: "4 min read",
+    image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=800&q=80",
     content: [
       "A customer once told us, half-joking, that their old IVR was technically bilingual: English, and silence. That's the failure mode we designed against from day one. If an agent can't follow a caller who opens in Hindi, drifts into English for a phone number, and finishes in Hinglish asking 'kal aa sakta hoon kya', it hasn't solved the problem, it's just moved it.",
       "Code-switching mid-sentence is normal, not an edge case, across most of the calls we handle. Our agents are built to track language at the utterance level, not lock into one language for the whole call, so a caller can move fluidly and the agent moves with them without asking them to repeat themselves in 'proper' Hindi or 'proper' English.",
@@ -64,6 +68,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Playbook",
     date: "2026-04-08",
     readTime: "5 min read",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
     content: [
       "Most real estate enquiry lines ask the same handful of questions eventually, budget, locality, timeline, configuration. What separates a call that converts from one that doesn't is usually the order those questions get asked in, and whether the caller feels like they're being qualified or being helped.",
       "Our real estate agents lead with the caller's stated interest, the project or listing they called about, before asking anything that sounds like a filter. Budget comes after locality, not before, because leading with budget reads as a sales gate and cools the conversation down. By the time the agent asks about timeline, the caller has already answered three questions that felt like they were about the property, not about qualification.",
@@ -80,6 +85,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Playbook",
     date: "2026-03-22",
     readTime: "5 min read",
+    image: "https://images.unsplash.com/photo-1556740758-90de374c12ad?w=800&q=80",
     content: [
       "Nobody enjoys getting a payment reminder call, but there's a wide gap between a reminder that gets a promise-to-pay and one that gets hung up on. Tone and timing do most of the work, more than the script itself.",
       "We start every collections agent with the assumption that the customer usually intends to pay, they've just lost track, or a payment failed silently, or they're waiting on their own incoming payment. The agent opens by stating the fact plainly, amount, due date, without the loaded language that reads as a threat. That framing alone changes how the rest of the call goes.",
@@ -96,6 +102,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Product",
     date: "2026-03-02",
     readTime: "4 min read",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80",
     content: [
       "A voice agent that has a great conversation and then leaves no trace anywhere is, from an operations standpoint, barely better than a great conversation that never happened. The value of the call only compounds if what was said on it becomes usable data the moment the call ends.",
       "Every Fiaxe agent writes back to your CRM automatically: a transcript, a structured summary, and whatever fields your team actually works from, lead status, qualification details, next action, appointment time. No one on your team should have to listen to a recording to find out what happened on a call that already ended an hour ago.",

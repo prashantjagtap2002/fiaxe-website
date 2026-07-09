@@ -39,30 +39,41 @@ export default function BlogPage() {
             <Reveal key={post.slug} delay={(i % 3) * 0.06}>
               <Link
                 href={`/blog/${post.slug}`}
-                className="group flex h-full flex-col rounded-2xl border border-line bg-ink p-7 shadow-sm transition-colors hover:border-line-bright"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-ink shadow-sm transition-colors hover:border-line-bright"
               >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[9px] tracking-[0.12em] text-faint uppercase">
-                    {post.category}
-                  </span>
-                  <span className="font-mono text-[10px] tracking-wider text-faint uppercase">
-                    {post.readTime}
-                  </span>
-                </div>
-                <h2 className="mt-5 font-display text-xl font-medium leading-snug tracking-tight text-balance">
-                  {post.title}
-                </h2>
-                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-muted">{post.excerpt}</p>
-                <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
-                  <time
-                    dateTime={post.date}
-                    className="font-mono text-[11px] tracking-wider text-faint uppercase"
-                  >
-                    {formatDate(post.date)}
-                  </time>
-                  <span className="text-sm font-medium text-blue transition-transform group-hover:translate-x-0.5">
-                    Read →
-                  </span>
+                {post.image && (
+                  <div className="relative h-48 w-full overflow-hidden border-b border-line bg-surface">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+                <div className="flex flex-1 flex-col p-7">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[9px] tracking-[0.12em] text-faint uppercase">
+                      {post.category}
+                    </span>
+                    <span className="font-mono text-[10px] tracking-wider text-faint uppercase">
+                      {post.readTime}
+                    </span>
+                  </div>
+                  <h2 className="mt-5 font-display text-xl font-medium leading-snug tracking-tight text-balance">
+                    {post.title}
+                  </h2>
+                  <p className="mt-3 flex-1 text-[15px] leading-relaxed text-muted">{post.excerpt}</p>
+                  <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
+                    <time
+                      dateTime={post.date}
+                      className="font-mono text-[11px] tracking-wider text-faint uppercase"
+                    >
+                      {formatDate(post.date)}
+                    </time>
+                    <span className="text-sm font-medium text-blue transition-transform group-hover:translate-x-0.5">
+                      Read →
+                    </span>
+                  </div>
                 </div>
               </Link>
             </Reveal>
