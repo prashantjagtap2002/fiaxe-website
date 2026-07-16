@@ -1,50 +1,132 @@
 "use client";
 
-import { Reveal, SectionHeading } from "./primitives";
+import { useState, useMemo, useCallback } from "react";
+import { motion } from "motion/react";
+import { Reveal, SectionHeading, CountUp } from "./primitives";
 
 const TIERS = [
-  { name: "Starter", rate: "₹7", minutes: "5,000", desc: "For teams validating their first voice agent." },
-  { name: "Grow", rate: "₹6.5", minutes: "10,000", desc: "For growing teams running steady call volumes." },
-  { name: "Pro", rate: "₹6", minutes: "30,000", desc: "For businesses scaling campaigns in production." },
-  { name: "Enterprise", rate: "₹5.5", minutes: "50,000", desc: "For enterprise-scale calling operations." },
+  { name: "Starter", rate: 8, minutes: 5000, desc: "For teams validating their first voice agent." },
+  { name: "Grow", rate: 7.5, minutes: 10000, desc: "For growing teams running steady call volumes." },
+  { name: "Pro", rate: 7, minutes: 30000, desc: "For businesses scaling campaigns in production." },
+  { name: "Enterprise", rate: 6.5, minutes: 50000, desc: "For enterprise-scale calling operations." },
 ];
 
 const INCLUDED = [
-  {
-    title: "Custom CRM access",
-    desc: "Manage all your customers in your own CRM.",
-  },
-  {
-    title: "Auto call launch",
-    desc: "Launch calls automatically from your apps.",
-  },
-  {
-    title: "Simultaneous calls",
-    desc: "Run multiple calls at the same time.",
-  },
-  {
-    title: "Custom AI voice bot",
-    desc: "Built custom for your business, your goals, your audience.",
-  },
-  {
-    title: "Every use case",
-    desc: "Sales, follow-ups, reminders, surveys & more.",
-  },
-  {
-    title: "Integrations",
-    desc: "We help integrate the bot with your tools and systems.",
-  },
-  {
-    title: "Setup & support",
-    desc: "Onboarding, integration help & ongoing support.",
-  },
-  {
-    title: "Reliable & secure",
-    desc: "Built with reliability, security and performance at the core.",
-  },
+  { title: "Custom CRM access", desc: "Manage all your customers in your own CRM." },
+  { title: "Auto call launch", desc: "Launch calls automatically from your apps." },
+  { title: "Simultaneous calls", desc: "Run multiple calls at the same time." },
+  { title: "Custom AI voice bot", desc: "Built custom for your business, your goals, your audience." },
+  { title: "Every use case", desc: "Sales, follow-ups, reminders, surveys & more." },
+  { title: "Integrations", desc: "We help integrate the bot with your tools and systems." },
+  { title: "Setup & support", desc: "Onboarding, integration help & ongoing support." },
+  { title: "Reliable & secure", desc: "Built with reliability, security and performance at the core." },
 ];
 
+const MIN_MINUTES = 1000;
+const MAX_MINUTES = 100000;
+const MIN_CALL_LENGTH = 1;
+const MAX_CALL_LENGTH = 10;
+
+const MINUTE_STOPS = [1000, 5000, 10000, 30000, 50000, 75000, 100000];
+const CALL_LENGTH_STOPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+function getRate(minutes: number): number {
+  if (minutes <= 5000) return 8;
+  if (minutes <= 10000) return 7.5;
+  if (minutes <= 30000) return 7;
+  if (minutes <= 50000) return 6.5;
+  return 6.5;
+}
+
+function getTier(minutes: number): string {
+  if (minutes <= 5000) return "Starter";
+  if (minutes <= 10000) return "Grow";
+  if (minutes <= 30000) return "Pro";
+  return "Enterprise";
+}
+
+function formatNum(n: number): string {
+  if (n >= 1000) {
+    const k = n / 1000;
+    return k % 1 === 0 ? `${k}K` : `${k.toFixed(1)}K`;
+  }
+  return String(n);
+}
+
+function RangeSlider({
+  value,
+  min,
+  max,
+  step,
+  stops,
+  fillPercent,
+  onChange,
+  onStopClick,
+}: {
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  stops: number[];
+  fillPercent: number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onStopClick: (v: number) => void;
+}) {
+  return (
+    <div className="px-1.5">
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={onChange}
+        className="range-slider"
+        style={{
+          background: `linear-gradient(to right, var(--blue) 0%, var(--blue) ${fillPercent}%, var(--line) ${fillPercent}%, var(--line) 100%)`,
+        }}
+      />
+      <div className="relative h-5">
+        {stops.map((stop) => {
+          const pct = ((stop - min) / (max - min)) * 100;
+          const isActive = Math.abs(value - stop) < (max - min) * 0.01;
+          return (
+            <button
+              key={stop}
+              type="button"
+              onClick={() => onStopClick(stop)}
+              className={`absolute top-0 -translate-x-1/2 font-mono text-[9px] tracking-wider uppercase transition-colors hover:text-cream ${
+                isActive ? "text-blue" : "text-faint"
+              }`}
+              style={{ left: `calc(11px + ${pct}% - ${pct * 0.22}px)` }}
+            >
+              {formatNum(stop)}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function Pricing() {
+  const [minutes, setMinutes] = useState(5000);
+  const [callLength, setCallLength] = useState(3);
+
+  const rate = useMemo(() => getRate(minutes), [minutes]);
+  const monthlyCost = useMemo(() => Math.round(rate * minutes), [minutes, rate]);
+  const numberOfCalls = useMemo(() => Math.round(minutes / callLength), [minutes, callLength]);
+  const tier = useMemo(() => getTier(minutes), [minutes]);
+
+  const minuteFill = useMemo(
+    () => ((minutes - MIN_MINUTES) / (MAX_MINUTES - MIN_MINUTES)) * 100,
+    [minutes],
+  );
+  const callLengthFill = useMemo(
+    () => ((callLength - MIN_CALL_LENGTH) / (MAX_CALL_LENGTH - MIN_CALL_LENGTH)) * 100,
+    [callLength],
+  );
+
   return (
     <section id="pricing" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
       <SectionHeading
@@ -59,17 +141,18 @@ export function Pricing() {
         copy="Transparent per-minute pricing on bundled minutes. No platform fees, no seat licenses, pay for conversations, not software."
       />
 
+      {/* Tier cards */}
       <Reveal>
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
           {TIERS.map((t) => (
             <div key={t.name} className="flex flex-col rounded-2xl border border-line bg-ink p-5 shadow-sm sm:p-7">
               <p className="mono-label !text-cream">{t.name}</p>
               <p className="mt-6 font-display text-[2.1rem] leading-none font-medium tracking-tight sm:text-[2.6rem]">
-                {t.rate}
+                ₹{t.rate}
                 <span className="ml-1 font-mono text-sm font-normal text-faint">/ min</span>
               </p>
               <p className="mt-4 border-t border-line pt-4 font-mono text-[11px] tracking-wider text-muted uppercase">
-                {t.minutes} minutes included
+                {formatNum(t.minutes)} minutes included
               </p>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{t.desc}</p>
               <a
@@ -84,7 +167,152 @@ export function Pricing() {
         </div>
       </Reveal>
 
-      {/* everything included, on every plan */}
+      {/* Volume calculator */}
+      <Reveal delay={0.1}>
+        <div className="mt-12 rounded-2xl border border-line bg-ink p-6 sm:p-8 md:mt-16 lg:p-10">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <span className="mono-label !text-cream">Volume calculator</span>
+            <motion.span
+              key={tier}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="rounded-full border border-line px-3 py-1 font-mono text-[10px] tracking-wider text-blue uppercase"
+            >
+              {tier} tier
+            </motion.span>
+          </div>
+
+          <p className="mt-3 font-display text-xl font-medium tracking-tight sm:text-2xl">
+            Slide to estimate your monthly cost
+          </p>
+
+          {/* Minutes slider */}
+          <div className="mt-8">
+            <div className="flex items-center justify-between gap-4">
+              <span className="mono-label shrink-0">Minutes / month</span>
+              <input
+                type="number"
+                min={MIN_MINUTES}
+                max={MAX_MINUTES}
+                step={500}
+                value={minutes}
+                onChange={(e) => {
+                  const v = Number(e.target.value);
+                  if (!isNaN(v)) setMinutes(Math.min(MAX_MINUTES, Math.max(MIN_MINUTES, v)));
+                }}
+                className="w-24 rounded-lg border border-line bg-ink-2 px-2.5 py-1.5 text-right font-mono text-sm font-medium text-cream tabular-nums outline-none transition-colors focus:border-blue"
+              />
+            </div>
+            <div className="mt-3">
+              <RangeSlider
+                value={minutes}
+                min={MIN_MINUTES}
+                max={MAX_MINUTES}
+                step={500}
+                stops={MINUTE_STOPS}
+                fillPercent={minuteFill}
+                onChange={(e) => setMinutes(Number(e.target.value))}
+                onStopClick={setMinutes}
+              />
+            </div>
+          </div>
+
+          {/* Call length slider */}
+          <div className="mt-8">
+            <div className="flex items-center justify-between gap-4">
+              <span className="mono-label shrink-0">Avg call length</span>
+              <div className="flex items-center gap-1.5">
+                <input
+                  type="number"
+                  min={MIN_CALL_LENGTH}
+                  max={MAX_CALL_LENGTH}
+                  step={1}
+                  value={callLength}
+                  onChange={(e) => {
+                    const v = Number(e.target.value);
+                    if (!isNaN(v)) setCallLength(Math.min(MAX_CALL_LENGTH, Math.max(MIN_CALL_LENGTH, v)));
+                  }}
+                  className="w-16 rounded-lg border border-line bg-ink-2 px-2.5 py-1.5 text-right font-mono text-sm font-medium text-cream tabular-nums outline-none transition-colors focus:border-blue"
+                />
+                <span className="font-mono text-[10px] text-faint">min</span>
+              </div>
+            </div>
+            <div className="mt-3">
+              <RangeSlider
+                value={callLength}
+                min={MIN_CALL_LENGTH}
+                max={MAX_CALL_LENGTH}
+                step={1}
+                stops={CALL_LENGTH_STOPS}
+                fillPercent={callLengthFill}
+                onChange={(e) => setCallLength(Number(e.target.value))}
+                onStopClick={setCallLength}
+              />
+            </div>
+          </div>
+
+          {/* Big metric cards */}
+          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            <motion.div layout className="rounded-xl border border-line bg-ink-2 p-4">
+              <p className="font-mono text-[10px] tracking-wider text-faint uppercase">Rate</p>
+              <p className="mt-1.5 font-display text-2xl font-medium tracking-tight text-blue">
+                ₹<CountUp value={rate} decimals={rate % 1 === 0 ? 0 : 1} />
+              </p>
+              <p className="mt-1 font-mono text-[10px] text-faint">per minute</p>
+            </motion.div>
+            <motion.div layout className="rounded-xl border border-line bg-ink-2 p-4">
+              <p className="font-mono text-[10px] tracking-wider text-faint uppercase">Volume</p>
+              <p className="mt-1.5 font-display text-2xl font-medium tracking-tight">
+                <CountUp value={minutes} />
+              </p>
+              <p className="mt-1 font-mono text-[10px] text-faint">minutes / month</p>
+            </motion.div>
+            <motion.div layout className="rounded-xl border border-line bg-ink-2 p-4">
+              <p className="font-mono text-[10px] tracking-wider text-faint uppercase">Calls</p>
+              <p className="mt-1.5 font-display text-2xl font-medium tracking-tight">
+                <CountUp value={numberOfCalls} />
+              </p>
+              <p className="mt-1 font-mono text-[10px] text-faint">calls / month</p>
+            </motion.div>
+            <motion.div layout className="rounded-xl border border-line bg-ink-2 p-4 sm:col-span-3 lg:col-span-2">
+              <p className="font-mono text-[10px] tracking-wider text-faint uppercase">Estimated cost</p>
+              <p className="mt-1.5 font-display text-2xl font-medium tracking-tight sm:text-3xl">
+                ₹<CountUp value={monthlyCost} />
+              </p>
+              <p className="mt-1 font-mono text-[10px] text-faint">
+                {formatNum(minutes)} mins × ₹{rate}/min = ~{formatNum(numberOfCalls)} calls
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Tier comparison bar */}
+          <div className="mt-8 overflow-hidden rounded-xl border border-line">
+            <div className="flex text-center">
+              {TIERS.map((t) => {
+                const isActive = t.name === tier;
+                return (
+                  <div
+                    key={t.name}
+                    onClick={() => setMinutes(t.minutes)}
+                    className={`flex-1 cursor-pointer border-r border-line px-2 py-3 transition-colors last:border-r-0 ${
+                      isActive ? "bg-blue/10" : "hover:bg-ink-2"
+                    }`}
+                  >
+                    <p className={`font-mono text-[10px] tracking-wider uppercase ${isActive ? "text-blue" : "text-faint"}`}>
+                      {t.name}
+                    </p>
+                    <p className={`mt-0.5 font-display text-sm font-medium tracking-tight ${isActive ? "text-blue" : "text-cream"}`}>
+                      ₹{t.rate}/min
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* everything included */}
       <Reveal delay={0.1}>
         <div className="mt-12 flex items-center gap-4 rounded-2xl border border-line bg-ink-2 px-7 py-4 md:mt-16">
           <span className="mono-label !text-cream">All plans include</span>

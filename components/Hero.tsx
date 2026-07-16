@@ -96,14 +96,14 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.75 }}
-            className="mt-12 grid w-full max-w-2xl grid-cols-2 gap-y-8 border-t border-line pt-8 sm:grid-cols-4"
+            className="mt-12 grid w-full max-w-2xl grid-cols-4 gap-2 border-t border-line pt-6 sm:gap-y-8 sm:pt-8"
           >
             {STATS.map((s) => (
               <div
                 key={s.label}
                 className="text-center sm:border-l sm:border-line sm:first:border-l-0"
               >
-                <p className="font-display text-[1.75rem] leading-none font-medium tracking-tight md:text-4xl">
+                <p className="font-display text-xl leading-none font-medium tracking-tight md:text-4xl">
                   <CountUp
                     value={s.value}
                     prefix={s.prefix ?? ""}
@@ -111,7 +111,7 @@ export function Hero() {
                     decimals={s.decimals ?? 0}
                   />
                 </p>
-                <p className="mt-3 font-mono text-[10px] leading-[1.5] tracking-[0.16em] text-faint uppercase">
+                <p className="mt-1 font-mono text-[8px] leading-[1.5] tracking-[0.16em] text-faint uppercase md:mt-3 md:text-[10px]">
                   {s.label}
                 </p>
               </div>

@@ -1,3 +1,7 @@
+"use client";
+
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { Reveal } from "./primitives";
 
@@ -44,8 +48,124 @@ const MORE: Testimonial[] = [
   },
 ];
 
+const ALL = [...TESTIMONIALS, ...MORE];
+
+const POSITIONS: { col: string; row: string }[] = [
+  { col: "1 / 9", row: "1" },
+  { col: "9 / 13", row: "1" },
+  { col: "1 / 5", row: "2" },
+  { col: "5 / 9", row: "2" },
+  { col: "9 / 13", row: "2" },
+];
+
+function getGridStyle(index: number, expandedIndex: number): React.CSSProperties {
+  if (index === expandedIndex) {
+    return { gridColumn: "1 / 9", gridRow: "1" };
+  }
+  if (index === 0 && expandedIndex !== 0) {
+    return {
+      gridColumn: POSITIONS[expandedIndex].col,
+      gridRow: POSITIONS[expandedIndex].row,
+    };
+  }
+  return {
+    gridColumn: POSITIONS[index].col,
+    gridRow: POSITIONS[index].row,
+  };
+}
+
+const EASE: [number, number, number, number] = [0.22, 0.08, 0.16, 1];
+const LAYOUT = { duration: 0.5, ease: EASE };
+
+function TestimonialCard({
+  t,
+  isBig,
+  onMouseEnter,
+}: {
+  t: Testimonial;
+  isBig: boolean;
+  onMouseEnter: () => void;
+}) {
+  return (
+    <motion.figure
+      layout
+      transition={{ layout: LAYOUT }}
+      onMouseEnter={onMouseEnter}
+      className={`flex h-full flex-col rounded-3xl border ${
+        isBig
+          ? "border-line bg-ink p-8 shadow-sm md:p-12"
+          : "border-line bg-ink-2 p-7"
+      }`}
+    >
+      <div className="font-mono text-xs tracking-[0.3em] text-blue">★★★★★</div>
+      <motion.blockquote
+        layout
+        transition={{ layout: LAYOUT }}
+        className={`mt-4 flex-1 leading-relaxed ${
+          isBig
+            ? "font-display text-2xl font-medium tracking-tight text-balance md:text-[2rem] md:leading-[1.3]"
+            : "text-[14px] text-muted"
+        }`}
+      >
+        &ldquo;{t.quote}&rdquo;
+      </motion.blockquote>
+      <motion.figcaption
+        layout
+        transition={{ layout: LAYOUT }}
+        className="mt-6 flex items-center gap-3"
+      >
+        <motion.span
+          layout
+          transition={{ layout: LAYOUT }}
+          className={`grid shrink-0 place-items-center rounded-full font-mono font-medium ${
+            isBig
+              ? "size-11 bg-blue text-xs text-white"
+              : "size-9 border border-line-bright text-[11px] text-cream"
+          }`}
+        >
+          {t.initials}
+        </motion.span>
+        <span>
+          <span className="block text-sm font-medium text-cream">{t.name}</span>
+          <span className="block font-mono text-[10px] tracking-wider text-faint uppercase">
+            {t.role}
+          </span>
+        </span>
+      </motion.figcaption>
+    </motion.figure>
+  );
+}
+
 export function Testimonials() {
-  const [lead, second] = TESTIMONIALS;
+  const [expandedIndex, setExpandedIndex] = useState(0);
+  const [supportsHover, setSupportsHover] = useState(false);
+  const busy = useRef(false);
+
+  useEffect(() => {
+    setSupportsHover(window.matchMedia("(hover: hover)").matches);
+  }, []);
+
+  const handleEnter = useCallback(
+    (index: number) => {
+      if (!supportsHover || busy.current || index === expandedIndex) return;
+      busy.current = true;
+      setExpandedIndex(index);
+      setTimeout(() => {
+        busy.current = false;
+      }, 550);
+    },
+    [supportsHover, expandedIndex],
+  );
+
+  const handleGridLeave = useCallback(() => {
+    if (!supportsHover || busy.current) return;
+    busy.current = true;
+    setExpandedIndex(0);
+    setTimeout(() => {
+      busy.current = false;
+    }, 550);
+  }, [supportsHover]);
+
   return (
     <section className="mx-auto max-w-7xl px-5 pt-24 pb-12 md:px-8 md:pt-32 md:pb-16">
       <div className="max-w-2xl">
@@ -56,71 +176,31 @@ export function Testimonials() {
         </Reveal>
       </div>
 
-      <div className="mt-14 grid gap-4 md:mt-16 lg:grid-cols-12">
-        {/* featured */}
-        <Reveal className="lg:col-span-7">
-          <figure className="flex h-full flex-col rounded-3xl border border-line bg-ink p-8 shadow-sm md:p-12">
-            <div className="font-mono text-xs tracking-[0.3em] text-blue">★★★★★</div>
-            <blockquote className="mt-6 flex-1 font-display text-2xl font-medium leading-snug tracking-tight text-balance md:text-[2rem] md:leading-[1.3]">
-              “{lead.quote}”
-            </blockquote>
-            <figcaption className="mt-8 flex items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-full bg-blue font-mono text-xs font-medium text-white">
-                {lead.initials}
-              </span>
-              <span>
-                <span className="block text-sm font-medium text-cream">{lead.name}</span>
-                <span className="block font-mono text-[10px] tracking-wider text-faint uppercase">
-                  {lead.role}
-                </span>
-              </span>
-            </figcaption>
-          </figure>
-        </Reveal>
-
-        {/* secondary */}
-        <Reveal className="lg:col-span-5" delay={0.08}>
-          <figure className="flex h-full flex-col rounded-3xl border border-line bg-ink-2 p-8">
-            <div className="font-mono text-xs tracking-[0.3em] text-blue">★★★★★</div>
-            <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-muted italic">
-              “{second.quote}”
-            </blockquote>
-            <figcaption className="mt-6 flex items-center gap-3">
-              <span className="grid size-9 place-items-center rounded-full border border-line-bright font-mono text-[11px] font-medium text-cream">
-                {second.initials}
-              </span>
-              <span>
-                <span className="block text-sm font-medium text-cream">{second.name}</span>
-                <span className="block font-mono text-[10px] tracking-wider text-faint uppercase">
-                  {second.role}
-                </span>
-              </span>
-            </figcaption>
-          </figure>
-        </Reveal>
-      </div>
-
-      <div className="mt-4 grid gap-4 md:grid-cols-3">
-        {MORE.map((t, i) => (
-          <Reveal key={t.name} delay={i * 0.06}>
-            <figure className="flex h-full flex-col rounded-3xl border border-line bg-ink-2 p-7">
-              <div className="font-mono text-xs tracking-[0.3em] text-blue">★★★★★</div>
-              <blockquote className="mt-4 flex-1 text-[14px] leading-relaxed text-muted">
-                “{t.quote}”
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <span className="grid size-9 place-items-center rounded-full border border-line-bright font-mono text-[11px] font-medium text-cream">
-                  {t.initials}
-                </span>
-                <span>
-                  <span className="block text-sm font-medium text-cream">{t.name}</span>
-                  <span className="block font-mono text-[10px] tracking-wider text-faint uppercase">
-                    {t.role}
-                  </span>
-                </span>
-              </figcaption>
-            </figure>
-          </Reveal>
+      <div
+        className="mt-14 grid grid-cols-1 gap-4 md:mt-16 lg:grid-cols-12 lg:grid-rows-[auto_auto]"
+        onMouseLeave={handleGridLeave}
+      >
+        {ALL.map((t, i) => (
+          <motion.div
+            key={t.name}
+            layout
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{
+              opacity: { duration: 0.5, delay: i * 0.06 },
+              y: { duration: 0.5, delay: i * 0.06 },
+              layout: LAYOUT,
+            }}
+            style={getGridStyle(i, expandedIndex)}
+            className="h-full"
+          >
+            <TestimonialCard
+              t={t}
+              isBig={i === expandedIndex}
+              onMouseEnter={() => handleEnter(i)}
+            />
+          </motion.div>
         ))}
       </div>
 

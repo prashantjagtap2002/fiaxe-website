@@ -1,9 +1,10 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 import { Reveal, Waveform } from "./primitives";
 
-type Step = { label: string; title: string; desc: string; tag?: string };
+type Step = { label: string; title: string; desc: string; tag?: string; timeline?: string };
 
 const STEPS: Step[] = [
   {
@@ -11,32 +12,38 @@ const STEPS: Step[] = [
     title: "Start with a real conversation",
     desc: "A quick 30-minute chat to learn how your business handles calls today, and exactly where leads slip through the cracks.",
     tag: "30 min · Free",
+    timeline: "Day 1",
   },
   {
     label: "Call mapping",
     title: "Map every call you get",
     desc: "We lay out each kind of call that comes in and decide precisely what should happen on each one, before a single line is built.",
+    timeline: "Day 2 - 3",
   },
   {
     label: "Build",
     title: "Build your agent from scratch",
     desc: "A voice agent trained around how you actually work: your scripts, your tone, your edge cases. Never a generic template.",
+    timeline: "Day 4 - 7",
   },
   {
     label: "Testing",
     title: "Test it together, line by line",
     desc: "We run real practice calls and fine-tune the agent until it sounds natural and you're fully confident to go live.",
+    timeline: "Day 8 - 10",
   },
   {
     label: "Go live",
     title: "Connect your number, switch it on",
     desc: "We wire your agent to your phone number, calendar, and tools, then flip it live and it starts answering for you.",
     tag: "Live in ~7 days",
+    timeline: "Day 11 - 14",
   },
   {
     label: "Optimize",
     title: "Keep making it sharper",
     desc: "We watch how calls go and keep improving your agent as your business grows. You're never left on your own.",
+    timeline: "Day 15+",
   },
 ];
 
@@ -74,9 +81,16 @@ function StepCard({ step, index }: { step: Step; index: number }) {
         {index + 1}
       </span>
 
-      <span className="relative font-mono text-[11px] tracking-[0.18em] text-blue uppercase">
-        {step.label}
-      </span>
+      <div className="relative flex items-start justify-between gap-4">
+        <span className="font-mono text-[11px] tracking-[0.18em] text-blue uppercase">
+          {step.label}
+        </span>
+        {step.timeline && (
+          <span className="shrink-0 whitespace-nowrap rounded-full bg-blue/10 px-2 py-0.5 font-mono text-[9px] font-semibold text-blue border border-blue/20">
+            {step.timeline}
+          </span>
+        )}
+      </div>
 
       <h3 className="relative mt-3 font-display text-lg font-medium tracking-tight text-balance">
         {step.title}
@@ -92,6 +106,39 @@ function StepCard({ step, index }: { step: Step; index: number }) {
 }
 
 export function Process() {
+  const trackRef = useRef<HTMLOListElement>(null);
+  const [isAutoPaused, setIsAutoPaused] = useState(false);
+  const autoPauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const scrollByCard = useCallback((dir: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const first = track.firstElementChild as HTMLElement | null;
+    const step = first ? first.offsetWidth + 20 : track.clientWidth * 0.8;
+    track.scrollBy({ left: dir * step, behavior: "smooth" });
+  }, []);
+
+  const pauseAuto = useCallback(() => {
+    setIsAutoPaused(true);
+    if (autoPauseTimer.current) clearTimeout(autoPauseTimer.current);
+    autoPauseTimer.current = setTimeout(() => setIsAutoPaused(false), 4000);
+  }, []);
+
+  useEffect(() => {
+    if (isAutoPaused) return;
+    const interval = setInterval(() => {
+      const track = trackRef.current;
+      if (!track) return;
+      if (window.innerWidth >= 1024) return;
+      const max = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= max - 4) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        scrollByCard(1);
+      }
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isAutoPaused, scrollByCard]);
   return (
     <section
       id="how-it-works"
@@ -128,12 +175,17 @@ export function Process() {
       {/* one horizontal row of step cards: all six sit in a single row on lg;
           below that the row scrolls horizontally (snap), so it never folds
           back into a grid. */}
-      <ol className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pt-2 pb-3 max-lg:mt-0 md:-mx-8 md:px-8 lg:mx-0 lg:mt-14 lg:grid lg:grid-cols-6 lg:overflow-visible lg:px-0">
+      <ol
+        ref={trackRef}
+        onPointerDown={pauseAuto}
+        className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pt-2 pb-3 max-lg:mt-0 md:-mx-8 md:px-8 lg:mx-0 lg:mt-14 lg:grid lg:grid-cols-6 lg:overflow-visible lg:px-0"
+      >
+        <li className="shrink-0 w-[10%] lg:hidden" aria-hidden="true" />
         {STEPS.map((s, i) => (
           <Reveal
             key={s.title}
             delay={i * 0.05}
-            className="flex w-[80%] shrink-0 snap-start flex-col sm:w-[46%] md:w-[31.5%] lg:w-auto"
+            className="flex w-[80%] shrink-0 snap-center flex-col sm:w-[46%] md:w-[31.5%] lg:w-auto"
           >
             <li className="group relative flex flex-1 list-none flex-col">
               {/* the card, kept in the format you liked */}
@@ -141,6 +193,7 @@ export function Process() {
             </li>
           </Reveal>
         ))}
+        <li className="shrink-0 w-[10%] lg:hidden" aria-hidden="true" />
       </ol>
     </section>
   );

@@ -31,8 +31,8 @@ function AgentRow({
 
   const words = timedWords(agent.transcript, duration);
   // Index of the word currently being "spoken", derived from real audio timing.
-  const activeIndex = Math.max(0, activeWordIndex(words, currentTime));
-  const VISIBLE_LINES = 3;
+  const activeIndex = playing ? activeWordIndex(words, currentTime) : -1;
+  const activeCueIndex = activeIndex >= 0 ? words[activeIndex]?.cueIndex : -1;
 
   // Only one agent plays at a time, pause this row when another takes over.
   useEffect(() => {
@@ -40,22 +40,16 @@ function AgentRow({
     if (audio && !isActive && !audio.paused) audio.pause();
   }, [isActive]);
 
-  // Keep the spoken word in view — the transcript scrolls a full line at a
-  // time so it never clips mid-line, and moves forward as the voice does.
-  // Note: a word span's own offsetHeight is just its glyph box, not the line
-  // box — the real per-line spacing is the paragraph's computed line-height.
+  // Keep the active speaker block scrolled into view
   useEffect(() => {
-    if (!playing) return;
-    const container = transcriptRef.current;
-    const word = activeWordRef.current;
-    if (!container || !word || !word.parentElement) return;
-    const lineHeight = parseFloat(getComputedStyle(word.parentElement).lineHeight);
-    if (!lineHeight) return;
-    container.style.height = `${VISIBLE_LINES * lineHeight}px`;
-    const currentLine = Math.round(word.offsetTop / lineHeight);
-    const targetLine = Math.max(0, currentLine - VISIBLE_LINES + 1);
-    container.scrollTo({ top: targetLine * lineHeight, behavior: "smooth" });
-  }, [activeIndex, playing]);
+    if (playing && transcriptRef.current && activeCueIndex !== -1) {
+      const activeEl = transcriptRef.current.querySelector('[data-active="true"]') as HTMLElement;
+      if (activeEl) {
+        const container = transcriptRef.current;
+        container.scrollTo({ top: activeEl.offsetTop, behavior: "smooth" });
+      }
+    }
+  }, [playing, activeCueIndex]);
 
   function togglePlay() {
     const audio = audioRef.current;
@@ -74,7 +68,7 @@ function AgentRow({
       onClick={togglePlay}
       aria-label={playing ? `Pause ${agent.name} sample` : `Play ${agent.name} sample`}
       aria-pressed={playing}
-      className="group flex snap-start shrink-0 flex-col rounded-2xl border border-line bg-ink p-6 text-left shadow-sm transition-colors hover:border-line-bright w-[80%] sm:w-[48%] lg:w-[31.5%]"
+      className="group flex snap-center shrink-0 flex-col rounded-2xl border border-line bg-ink p-6 text-left shadow-sm transition-colors hover:border-line-bright w-[80%] sm:w-[48%] lg:w-[31.5%]"
     >
       <div className="flex items-center justify-between">
         <span className="font-mono text-xs text-faint">/0{index + 1}</span>
@@ -119,32 +113,45 @@ function AgentRow({
 
       <p className="mt-4 flex-1 text-[13px] leading-relaxed text-muted">{agent.desc}</p>
 
-      {/* live transcript — drops in on play, scrolls a full line at a time with the voice */}
+      {/* live transcript — drops in on play, scrolls speaker-by-speaker with the voice */}
       <div
         className={`grid transition-all duration-300 ease-out ${
           playing ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
         <div className="overflow-hidden rounded-xl border border-line bg-canvas p-3">
-          <div ref={transcriptRef} className="relative h-[53.625px] overflow-hidden">
-            <p className="font-mono text-[11px] leading-relaxed">
-              <span className="text-blue">agent ›</span>{" "}
-              {words.map((word, i) => (
-                <span
-                  key={i}
-                  ref={i === activeIndex ? activeWordRef : undefined}
-                  className={`transition-colors duration-200 ${
-                    i === activeIndex
-                      ? "rounded bg-blue/15 text-cream"
-                      : i < activeIndex
-                        ? "text-cream"
-                        : "text-faint"
-                  }`}
-                >
-                  {word.text}{" "}
-                </span>
-              ))}
-            </p>
+          <div ref={transcriptRef} className="relative h-[120px] overflow-y-auto space-y-2.5 pr-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-line">
+            {agent.transcript.map((cue, ci) => {
+              const cueWords = words.filter((w) => w.cueIndex === ci);
+              const isActiveCue = ci === activeCueIndex || (activeCueIndex === -1 && ci === 0 && !playing);
+
+              return (
+                <div key={ci} data-active={isActiveCue} className="flex flex-col">
+                  <span className={cue.speaker === "agent" ? "text-blue mb-0.5 font-mono text-[10px]" : "text-purple-400 mb-0.5 font-mono text-[10px]"}>
+                    {cue.speaker === "agent" ? "agent ›" : "customer ›"}
+                  </span>
+                  <p className="font-mono text-[11px] leading-relaxed text-left">
+                    {cueWords.map((word, i) => {
+                      const globalIdx = words.indexOf(word);
+                      return (
+                        <span
+                          key={i}
+                          className={`transition-colors duration-200 ${
+                            globalIdx === activeIndex
+                              ? "rounded bg-blue/15 text-cream"
+                              : globalIdx < activeIndex
+                                ? "text-cream"
+                                : "text-faint"
+                          }`}
+                        >
+                          {word.text}{" "}
+                        </span>
+                      );
+                    })}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -250,7 +257,42 @@ export function AgentsStrip() {
     [],
   );
 
+  // Autoscroll + infinite loop
+  const [isAutoPaused, setIsAutoPaused] = useState(false);
+  const autoPauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const pauseAuto = useCallback(() => {
+    setIsAutoPaused(true);
+    if (autoPauseTimer.current) clearTimeout(autoPauseTimer.current);
+    autoPauseTimer.current = setTimeout(() => setIsAutoPaused(false), 4000);
+  }, []);
+
+  useEffect(() => {
+    if (isAutoPaused) return;
+    const interval = setInterval(() => {
+      const track = trackRef.current;
+      if (!track) return;
+      const max = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= max - 4) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        scrollByCard(1);
+      }
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isAutoPaused, scrollByCard]);
+
+  useEffect(() => {
+    if (activeName) {
+      setIsAutoPaused(true);
+    } else {
+      if (autoPauseTimer.current) clearTimeout(autoPauseTimer.current);
+      autoPauseTimer.current = setTimeout(() => setIsAutoPaused(false), 4000);
+    }
+  }, [activeName]);
+
   const onKeyDown = (e: React.KeyboardEvent) => {
+    pauseAuto();
     if (e.key === "ArrowLeft") {
       e.preventDefault();
       scrollByCard(-1);
@@ -262,6 +304,7 @@ export function AgentsStrip() {
 
   // ── pointer drag handlers ──────────────────────────────────────────
   const onPointerDown = (e: React.PointerEvent) => {
+    pauseAuto();
     if (e.pointerType === "touch") return; // let native scroll handle touch
     const track = trackRef.current;
     if (!track) return;
@@ -335,8 +378,8 @@ export function AgentsStrip() {
             ← Drag or scroll to explore →
           </span>
           <div className="ml-auto flex items-center gap-3">
-            <ArrowButton direction="left" disabled={!canPrev} onClick={() => scrollByCard(-1)} label="Previous agents" />
-            <ArrowButton direction="right" disabled={!canNext} onClick={() => scrollByCard(1)} label="Next agents" />
+            <ArrowButton direction="left" disabled={!canPrev} onClick={() => { pauseAuto(); scrollByCard(-1); }} label="Previous agents" />
+            <ArrowButton direction="right" disabled={!canNext} onClick={() => { pauseAuto(); scrollByCard(1); }} label="Next agents" />
           </div>
         </div>
       </Reveal>
@@ -368,7 +411,7 @@ export function AgentsStrip() {
           tabIndex={0}
           role="listbox"
           aria-label="Agent samples carousel"
-          className="no-scrollbar flex items-stretch cursor-grab snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 outline-none focus-visible:ring-2 focus-visible:ring-blue/40"
+          className="no-scrollbar flex items-stretch cursor-grab snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 outline-none focus-visible:ring-2 focus-visible:ring-blue/40 sm:px-0 px-[10%]"
         >
           {AGENTS.map((agent, i) => (
             <AgentRow

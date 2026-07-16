@@ -8,15 +8,18 @@ export function Reveal({
   delay = 0,
   y = 14,
   className,
+  style,
 }: {
   children: ReactNode;
   delay?: number;
   y?: number;
   className?: string;
+  style?: React.CSSProperties;
 }) {
   return (
     <motion.div
       className={className}
+      style={style}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
