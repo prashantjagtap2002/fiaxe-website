@@ -54,7 +54,7 @@ const COMPARISON: { without: string; with: string }[] = [
 
 export function CustomerOutcomes() {
   return (
-    <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <section className="mx-auto max-w-7xl px-5 pt-20 pb-10 md:px-8 md:pt-28 md:pb-12">
       <SectionHeading
         label="The Difference"
         rightMeta="Real outcomes"
@@ -83,27 +83,46 @@ export function CustomerOutcomes() {
 
       {/* without / with comparison */}
       <Reveal delay={0.1}>
-        <div className="mt-4 border border-line">
-          <div className="grid grid-cols-2 gap-px bg-line">
-            <div className="bg-ink-2 px-6 py-4">
-              <p className="mono-label">Without Fiaxe</p>
+        <div className="mt-8 overflow-hidden rounded-3xl border border-line bg-ink shadow-[0_8px_40px_-12px_rgba(0,0,0,0.06)]">
+          {/* Header */}
+          <div className="grid grid-cols-1 md:grid-cols-2 border-b border-line">
+            <div className="bg-ink-2 px-8 py-5">
+              <div className="flex items-center gap-3">
+                <span className="flex size-7 items-center justify-center rounded-full bg-red-100/50 text-red-500">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </span>
+                <p className="font-mono text-xs font-semibold tracking-widest text-muted uppercase">Without Fiaxe</p>
+              </div>
             </div>
-            <div className="bg-ink px-6 py-4">
-              <p className="mono-label !text-blue">With Fiaxe</p>
+            <div className="bg-blue/5 px-8 py-5 md:border-l border-line">
+              <div className="flex items-center gap-3">
+                <span className="flex size-7 items-center justify-center rounded-full bg-blue/10 text-blue shadow-sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </span>
+                <p className="font-mono text-xs font-semibold tracking-widest text-blue uppercase">With Fiaxe</p>
+              </div>
             </div>
           </div>
-          {COMPARISON.map((row) => (
-            <div key={row.without} className="grid grid-cols-2 gap-px border-t border-line bg-line">
-              <div className="flex items-start gap-2.5 bg-ink-2 px-4 py-4 sm:gap-3 sm:px-6 sm:py-5">
-                <span className="mt-0.5 font-mono text-xs text-faint">×</span>
-                <p className="text-sm leading-relaxed text-muted">{row.without}</p>
+          
+          {/* Rows */}
+          <div className="divide-y divide-line">
+            {COMPARISON.map((row) => (
+              <div key={row.without} className="group grid grid-cols-1 transition-colors duration-300 hover:bg-ink-2/50 md:grid-cols-2">
+                <div className="flex items-start gap-4 px-8 py-7 md:border-r border-line">
+                  <span className="mt-0.5 shrink-0 text-red-400 opacity-70 transition-transform duration-300 group-hover:scale-110">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </span>
+                  <p className="text-[15px] leading-relaxed text-muted transition-colors group-hover:text-cream">{row.without}</p>
+                </div>
+                <div className="flex items-start gap-4 px-8 py-7 transition-colors duration-300 group-hover:bg-blue/[0.03]">
+                  <span className="mt-0.5 shrink-0 text-blue transition-transform duration-300 group-hover:scale-110">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </span>
+                  <p className="text-[15px] font-medium leading-relaxed text-cream">{row.with}</p>
+                </div>
               </div>
-              <div className="flex items-start gap-2.5 bg-ink px-4 py-4 sm:gap-3 sm:px-6 sm:py-5">
-                <span className="mt-0.5 font-mono text-xs text-blue">✓</span>
-                <p className="text-sm leading-relaxed text-cream">{row.with}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </Reveal>
     </section>

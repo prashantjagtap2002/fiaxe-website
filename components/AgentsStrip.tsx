@@ -358,7 +358,7 @@ export function AgentsStrip() {
   };
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <section className="mx-auto max-w-7xl px-5 pt-10 pb-20 md:px-8 md:pt-16 md:pb-28">
       <SectionHeading
         index="07"
         label="Meet The Agents"

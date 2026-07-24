@@ -17,8 +17,8 @@ const ROLES = [
 const EMPLOYMENT_TYPES = ["Full-time", "Contract", "Internship", "Part-time", "Freelance"];
 
 const fieldCls =
-  "rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 text-sm text-cream outline-none transition-colors placeholder:text-faint focus:border-blue";
-const labelCls = "font-mono text-[10px] tracking-[0.12em] text-faint uppercase";
+  "rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 text-sm text-cream outline-none transition-colors placeholder:text-muted focus:border-blue";
+const labelCls = "font-mono text-[10px] tracking-[0.12em] text-muted uppercase";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -93,11 +93,11 @@ export function CareersForm() {
           </label>
           <label className="flex flex-col gap-2">
             <span className={labelCls}>Email <span className="text-blue">*</span></span>
-            <input name="email" type="email" required placeholder="you@email.com" className={fieldCls} />
+            <input name="email" type="email" required placeholder="you@email.com" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" className={fieldCls} />
           </label>
           <label className="flex flex-col gap-2">
             <span className={labelCls}>Phone <span className="text-blue">*</span></span>
-            <input name="phone" type="tel" required placeholder="+91 98765 43210" className={fieldCls} />
+            <input name="phone" type="tel" required placeholder="+91 98765 43210" pattern="[+]?[0-9 ()-]{7,15}" title="Please enter a valid phone number" className={fieldCls} />
           </label>
           <label className="flex flex-col gap-2">
             <span className={labelCls}>Notice period</span>
@@ -133,7 +133,7 @@ export function CareersForm() {
             <input
               name="resume"
               type="file"
-              accept=".pdf,.doc,.docx"
+              accept=".pdf,application/pdf"
               onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
               className="sr-only"
             />

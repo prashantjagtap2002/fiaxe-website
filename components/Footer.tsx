@@ -17,7 +17,6 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "AI agents", href: "/agents" },
       { label: "Industries", href: "/customer-stories#industries" },
       { label: "Pricing", href: "/pricing" },
-      { label: "Blog", href: "/blog" },
       { label: "Live demo", href: "/#live-demo" },
       { label: "Fiaxe CRM", href: "/#crm" },
     ],
@@ -32,10 +31,10 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Legal",
     links: [
-      { label: "Terms of use", href: "#" },
-      { label: "Privacy policy", href: "#" },
-      { label: "Data residency", href: "#" },
-      { label: "Security", href: "#" },
+      { label: "Terms of use", href: "/terms-of-use" },
+      { label: "Privacy policy", href: "/privacy-policy" },
+      { label: "Data residency", href: "/data-residency" },
+      { label: "Security", href: "/security" },
     ],
   },
 ];
@@ -53,6 +52,12 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
   );
 }
 
+const SOCIALS = [
+  { label: "ig", href: "https://www.instagram.com/fiaxe.ai/" },
+  { label: "in", href: "https://www.linkedin.com/company/fiaxe/posts/?feedView=all" },
+  { label: "yt", href: "https://www.youtube.com/@xaif-in" },
+];
+
 export function Footer() {
   return (
     <footer className="border-t border-line">
@@ -64,18 +69,18 @@ export function Footer() {
               Voice AI agents for modern businesses, collections, reminders,
               recruitment, lead qualification and support, integrated into your CRM.
             </p>
-            <p className="mt-4 font-mono text-[11px] tracking-wider text-faint uppercase">
-              Founded 2025 · Mumbai · Pan-India
-            </p>
+
             <div className="mt-6 flex gap-2">
-              {["X", "in", "yt"].map((s) => (
+              {SOCIALS.map((s) => (
                 <a
-                  key={s}
-                  href="#"
-                  aria-label={s}
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
                   className="grid size-9 place-items-center border border-line font-mono text-xs text-muted transition-colors hover:border-cream hover:text-cream"
                 >
-                  {s}
+                  {s.label}
                 </a>
               ))}
             </div>

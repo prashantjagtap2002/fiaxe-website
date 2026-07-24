@@ -33,7 +33,7 @@ export default function CareersPage() {
         <Reveal>
           <div className="grid gap-5 md:grid-cols-3">
             {PERKS.map((p) => (
-              <div key={p.title} className="rounded-2xl border border-line bg-ink p-7 shadow-sm">
+              <div key={p.title} className="rounded-2xl border border-line bg-ink p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:shadow-md">
                 <h3 className="font-display text-base font-medium tracking-tight">{p.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{p.desc}</p>
               </div>

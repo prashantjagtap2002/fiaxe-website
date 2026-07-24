@@ -72,7 +72,7 @@ const INDUSTRIES: Industry[] = [
 
 export function IndustriesGrid() {
   return (
-    <section id="industries" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+    <section id="industries" className="mx-auto max-w-7xl px-5 pt-12 pb-12 md:px-8 md:pt-16 md:pb-16">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         {/* list column (left on desktop) */}
         <div className="order-2 lg:order-1 lg:col-span-7">

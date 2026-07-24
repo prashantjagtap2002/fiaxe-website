@@ -142,7 +142,7 @@ export function Process() {
   return (
     <section
       id="how-it-works"
-      className="mx-auto max-w-7xl px-5 pt-12 pb-20 md:px-8 md:pt-16 md:pb-28"
+      className="mx-auto max-w-7xl px-5 pt-12 pb-10 md:px-8 md:pt-16 md:pb-12"
     >
       {/* heading */}
       <div className="max-w-2xl">

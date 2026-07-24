@@ -128,7 +128,7 @@ export function Pricing() {
   );
 
   return (
-    <section id="pricing" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <section id="pricing" className="mx-auto max-w-7xl px-5 pt-20 pb-8 md:px-8 md:pt-28 md:pb-12">
       <SectionHeading
         index="01"
         label="Pricing"

@@ -32,7 +32,7 @@ const USE_CASES: UseCase[] = [
 
 export function UseCases() {
   return (
-    <section id="use-cases" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <section id="use-cases" className="mx-auto max-w-7xl px-5 pt-8 pb-20 md:px-8 md:pt-12 md:pb-28">
       <SectionHeading
         index="03"
         label="Use Cases"
@@ -48,7 +48,7 @@ export function UseCases() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {USE_CASES.map((u, i) => (
           <Reveal key={u.industry} delay={(i % 3) * 0.06}>
-            <div className="group flex h-full flex-col rounded-2xl border border-line bg-ink p-7 shadow-sm transition-colors hover:border-line-bright">
+            <div className="group flex h-full flex-col rounded-2xl border border-line bg-ink p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:shadow-md">
               <span className="font-mono text-xs text-faint">/0{i + 1}</span>
               <h3 className="mt-5 font-display text-xl font-medium tracking-tight transition-colors group-hover:text-blue">
                 {u.industry}

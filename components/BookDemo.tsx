@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Reveal } from "./primitives";
 
 const fieldCls =
-  "rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 text-sm text-cream outline-none transition-colors placeholder:text-faint focus:border-blue";
-const labelCls = "font-mono text-[10px] tracking-[0.12em] text-faint uppercase";
+  "rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 text-sm text-cream outline-none transition-colors placeholder:text-muted focus:border-blue";
+const labelCls = "font-mono text-[10px] tracking-[0.12em] text-muted uppercase";
 
 const EXPECT = [
   { t: "A 30-minute call", d: "Free, no commitment, no hard sell, just a conversation about your business." },
@@ -18,6 +18,21 @@ type Status = "idle" | "sending" | "success" | "error";
 
 export function BookDemo() {
   const [status, setStatus] = useState<Status>("idle");
+
+  // Disable past dates on the Preferred date picker (today and onward only).
+  // Computed on the client to avoid a build-time vs. runtime hydration mismatch.
+  const [minDate, setMinDate] = useState("");
+  const [minTime, setMinTime] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  useEffect(() => {
+    const now = new Date();
+    const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    setMinDate(iso);
+    setMinTime(`${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`);
+  }, []);
+
+  // Only restrict times when the booking is for today; future dates allow any time.
+  const timeMin = selectedDate && selectedDate === minDate ? minTime : "";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -85,27 +100,26 @@ export function BookDemo() {
               </label>
               <label className="flex flex-col gap-2">
                 <span className={labelCls}>Email <span className="text-blue">*</span></span>
-                <input name="email" type="email" required placeholder="you@company.com" className={fieldCls} />
+                <input name="email" type="email" required placeholder="you@company.com" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" className={fieldCls} />
               </label>
               <label className="flex flex-col gap-2">
                 <span className={labelCls}>Phone <span className="text-blue">*</span></span>
-                <input name="phone" type="tel" required placeholder="+91 98765 43210" className={fieldCls} />
+                <input name="phone" type="tel" required placeholder="+91 98765 43210" pattern="[+]?[0-9 ()-]{7,15}" title="Please enter a valid phone number" className={fieldCls} />
               </label>
               <label className="flex flex-col gap-2">
                 <span className={labelCls}>Preferred date</span>
-                <input name="date" type="date" className={fieldCls} />
+                <input name="date" type="date" min={minDate} onChange={(e) => setSelectedDate(e.target.value)} className={fieldCls} />
               </label>
               <label className="flex flex-col gap-2">
                 <span className={labelCls}>Preferred time</span>
-                <input name="time" type="time" className={fieldCls} />
+                <input name="time" type="time" min={timeMin} className={fieldCls} />
               </label>
             </div>
             <label className="flex flex-col gap-2">
               <span className={labelCls}>Preferred channel</span>
-              <select name="channel" defaultValue="Phone call" className={fieldCls}>
+              <select name="channel" defaultValue="Phone call" className={`${fieldCls} select-field`}>
                 <option>Phone call</option>
-                <option>Video call</option>
-                <option>WhatsApp</option>
+                <option>Online meeting</option>
               </select>
             </label>
             <label className="flex flex-col gap-2">

@@ -5,7 +5,7 @@ import { Reveal, Waveform } from "./primitives";
 
 export function Cta() {
   return (
-    <section id="cta" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <section id="cta" className="mx-auto max-w-7xl px-5 pt-10 pb-20 md:px-8 md:pt-16 md:pb-28">
       <Reveal>
         <div className="overflow-hidden rounded-3xl border border-line bg-ink px-6 py-16 text-center shadow-lg shadow-black/5 md:px-8 md:py-24">
           <div className="mx-auto max-w-3xl">
