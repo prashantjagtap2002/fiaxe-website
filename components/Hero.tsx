@@ -62,7 +62,7 @@ export function Hero() {
             </Link>
             <Link
               href="/agents"
-              className="group rounded-full border border-cream/30 px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-cream uppercase transition-colors hover:border-cream hover:bg-cream/5"
+              className="group rounded-full border border-white/30 px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase transition-colors hover:border-white hover:bg-white/10"
             >
               <span className="flex items-center gap-2.5">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
