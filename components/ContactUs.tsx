@@ -28,8 +28,17 @@ export function ContactUs() {
   const [status, setStatus] = useState<Status>("idle");
 
   const [minDate, setMinDate] = useState("");
+  const [utm, setUtm] = useState<Record<string, string>>({});
   
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setUtm({
+      utm_source: params.get("utm_source") || "",
+      utm_medium: params.get("utm_medium") || "",
+      utm_campaign: params.get("utm_campaign") || "",
+      utm_term: params.get("utm_term") || "",
+      utm_content: params.get("utm_content") || "",
+    });
     const tmrw = new Date();
     tmrw.setDate(tmrw.getDate() + 1);
     const iso = `${tmrw.getFullYear()}-${String(tmrw.getMonth() + 1).padStart(2, "0")}-${String(tmrw.getDate()).padStart(2, "0")}`;
@@ -41,6 +50,11 @@ export function ContactUs() {
     const form = e.currentTarget;
     const payload = Object.fromEntries(new FormData(form).entries());
     payload.page = "contactus";
+    payload.utm_source = utm.utm_source;
+    payload.utm_medium = utm.utm_medium;
+    payload.utm_campaign = utm.utm_campaign;
+    payload.utm_term = utm.utm_term;
+    payload.utm_content = utm.utm_content;
 
     setStatus("sending");
     try {
