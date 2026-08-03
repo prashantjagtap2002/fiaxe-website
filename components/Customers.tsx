@@ -3,25 +3,24 @@
 import { Reveal, Kicker } from "./primitives";
 
 export const CLIENTS = [
-  { name: "Mahindra", domain: "mahindra.com" },
-  { name: "MG", domain: "mgmotor.co.in" },
-  { name: "Audi", domain: "audi.com" },
-  { name: "Hyundai", domain: "hyundai.com" },
+  { name: "Mahindra", domain: "mahindra.com", logo: "/logos/mahindra.svg" },
+  { name: "MG", domain: "mgmotor.co.in", logo: "/logos/mg.jpeg" },
+  { name: "Audi", domain: "audi.com", logo: "/logos/audi.svg" },
+  { name: "Hyundai", domain: "hyundai.com", logo: "/logos/hyundai.svg" },
   { name: "Volkswagen", domain: "volkswagen.com" },
-  { name: "Tata Consumer Products", domain: "tataconsumer.com" },
+  { name: "Tata Consumer Products", domain: "tataconsumer.com", logo: "/logos/tataconsumer.png" },
   { name: "Pfizer", domain: "pfizer.com" },
-  { name: "JioHotstar", domain: "hotstar.com" },
+  { name: "JioHotstar", domain: "hotstar.com", logo: "/logos/jiohotstar.png" },
   { name: "Publicis Media", domain: "publicismedia.com" },
   { name: "Schbang", domain: "schbang.com" },
-  { name: "Gozoop", domain: "gozoop.com" },
-  { name: "SoCheers", domain: "socheers.net" },
-  { name: "Tonic Worldwide", domain: "tonicworldwide.com" },
+  { name: "Gozoop", domain: "gozoop.com", logo: "/logos/gozoop.jpeg" },
+  { name: "SoCheers", domain: "socheers.net", logo: "/logos/socheers.png", className: "h-6 md:h-7 w-auto" },
+  { name: "Tonic Worldwide", domain: "tonicworldwide.com", logo: "/logos/tonicworldwide.svg" },
   { name: "MX Player", domain: "mxplayer.in" },
-  { name: "The Belgian Waffle Co", domain: "thebelgianwaffle.co" },
-  { name: "Aquant", domain: "aquantindia.com" },
-  { name: "indē wild", domain: "indewild.com" },
+  { name: "The Belgian Waffle Co", domain: "thebelgianwaffle.co", logo: "/logos/belgianwaffle.svg" },
+  { name: "Aquant", domain: "aquantindia.com", logo: "/logos/aquant.png" },
+  { name: "indē wild", domain: "indewild.com", logo: "/logos/indewild.png" },
   { name: "IIDE", domain: "iide.co" },
-  { name: "Deepak Group", domain: "deepakgroup.com" },
 ];
 
 export function Customers() {
@@ -40,10 +39,14 @@ export function Customers() {
           <div className="flex shrink-0 animate-marquee items-center gap-14 pr-14">
             {[...CLIENTS, ...CLIENTS].map((client, i) => (
               <span key={`${client.name}-${i}`} className="flex items-center gap-14 whitespace-nowrap">
-                <span className="font-display text-xl font-semibold tracking-tight text-cream/85 transition-colors hover:text-cream">
-                  {client.name}
-                </span>
-                <span className="size-1 rounded-full bg-cream/40" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src={client.logo || `https://www.google.com/s2/favicons?domain=${client.domain}&sz=128`} 
+                  alt={client.name} 
+                  title={client.name}
+                  className={`block shrink-0 object-contain transition-all opacity-85 hover:opacity-100 h-8 md:h-10 w-auto max-w-[140px] md:max-w-[180px] ${client.className || ''}`}
+                />
+                <span className="block size-1.5 shrink-0 rounded-full bg-cream/40 -translate-y-[1px]" />
               </span>
             ))}
           </div>
