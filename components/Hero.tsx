@@ -116,12 +116,8 @@ export function Hero() {
             <div className="flex shrink-0 animate-marquee items-center gap-14 pr-14">
               {[...CLIENTS, ...CLIENTS].map((client, i) => (
                 <span key={`${client.name}-${i}`} className="flex items-center gap-14 whitespace-nowrap">
-                  <span className="flex items-center gap-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`https://www.google.com/s2/favicons?domain=${client.domain}&sz=128`} alt={client.name} className="h-6 w-6 rounded-md object-contain grayscale transition-all hover:grayscale-0 opacity-85 hover:opacity-100" />
-                    <span className="font-display text-xl font-semibold tracking-tight text-cream/85 transition-colors hover:text-cream">
-                      {client.name}
-                    </span>
+                  <span className="font-display text-xl font-semibold tracking-tight text-cream/85 transition-colors hover:text-cream">
+                    {client.name}
                   </span>
                   <span className="size-1 rounded-full bg-cream/40" />
                 </span>
