@@ -14,25 +14,28 @@ const EXPECT = [
   { t: "You get a clear plan", d: "A custom scope and quote, so you know precisely what go-live looks like." },
 ];
 
+const TIME_SLOTS = [
+  "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM",
+  "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM",
+  "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM",
+  "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM",
+  "05:00 PM",
+];
+
 type Status = "idle" | "sending" | "success" | "error";
 
 export function BookDemo() {
   const [status, setStatus] = useState<Status>("idle");
 
-  // Disable past dates on the Preferred date picker (today and onward only).
+  // Disable past dates and today on the Preferred date picker (tomorrow and onward only).
   // Computed on the client to avoid a build-time vs. runtime hydration mismatch.
   const [minDate, setMinDate] = useState("");
-  const [minTime, setMinTime] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
   useEffect(() => {
-    const now = new Date();
-    const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    const tmrw = new Date();
+    tmrw.setDate(tmrw.getDate() + 1);
+    const iso = `${tmrw.getFullYear()}-${String(tmrw.getMonth() + 1).padStart(2, "0")}-${String(tmrw.getDate()).padStart(2, "0")}`;
     setMinDate(iso);
-    setMinTime(`${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`);
   }, []);
-
-  // Only restrict times when the booking is for today; future dates allow any time.
-  const timeMin = selectedDate && selectedDate === minDate ? minTime : "";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -106,11 +109,16 @@ export function BookDemo() {
               </label>
               <label className="flex flex-col gap-2">
                 <span className={labelCls}>Preferred date</span>
-                <input name="date" type="date" min={minDate} onChange={(e) => setSelectedDate(e.target.value)} className={fieldCls} />
+                <input name="date" type="date" min={minDate} className={fieldCls} required />
               </label>
               <label className="flex flex-col gap-2">
                 <span className={labelCls}>Preferred time</span>
-                <input name="time" type="time" min={timeMin} className={fieldCls} />
+                <select name="time" className={`${fieldCls} select-field`} defaultValue="" required>
+                  <option value="" disabled>--:-- --</option>
+                  {TIME_SLOTS.map((t) => (
+                    <option key={t} value={t}>{t}</option>
+                  ))}
+                </select>
               </label>
             </div>
             <label className="flex flex-col gap-2">
