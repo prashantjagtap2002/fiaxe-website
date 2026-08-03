@@ -30,8 +30,8 @@ export function WhatWeBuild() {
   return (
     <section id="what-we-build" className="mx-auto max-w-7xl px-5 pt-12 pb-8 md:px-8 md:pt-16 md:pb-10">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-        {/* narrative column, centered against the taller list */}
-        <div className="lg:col-span-5 lg:self-center">
+        {/* narrative column, sticks to top against the taller list */}
+        <div className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
           <div>
             <Reveal delay={0.06}>
               <h2 className="font-display text-4xl font-medium tracking-tight text-balance md:text-5xl">
