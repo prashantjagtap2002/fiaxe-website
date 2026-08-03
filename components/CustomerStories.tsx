@@ -210,7 +210,7 @@ export function CustomerStories() {
   );
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
+    <section className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
       {/* aggregate proof, slim divided band (distinct from Results' stat cards) */}
       <Reveal>
         <div className="grid grid-cols-2 divide-line border-y border-line md:grid-cols-4 md:divide-x">
@@ -319,7 +319,7 @@ export function CustomerStories() {
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {visible.map((s, i) => (
               <Reveal key={s.company} delay={(i % 3) * 0.06}>
-                <article className="group flex h-full flex-col rounded-2xl border border-line bg-ink p-7 shadow-sm transition-colors hover:border-line-bright">
+                <article className="group flex h-full flex-col rounded-2xl border border-line bg-ink p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:shadow-md">
                   <span className="self-start rounded-full border border-line px-2.5 py-0.5 font-mono text-[9px] tracking-[0.12em] text-faint uppercase">
                     {s.industry}
                   </span>

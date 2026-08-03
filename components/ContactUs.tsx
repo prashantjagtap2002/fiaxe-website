@@ -16,11 +16,9 @@ const EXPECT = [
 
 type Status = "idle" | "sending" | "success" | "error";
 
-export function BookDemo() {
+export function ContactUs() {
   const [status, setStatus] = useState<Status>("idle");
 
-  // Disable past dates on the Preferred date picker (today and onward only).
-  // Computed on the client to avoid a build-time vs. runtime hydration mismatch.
   const [minDate, setMinDate] = useState("");
   const [minTime, setMinTime] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
@@ -31,7 +29,6 @@ export function BookDemo() {
     setMinTime(`${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`);
   }, []);
 
-  // Only restrict times when the booking is for today; future dates allow any time.
   const timeMin = selectedDate && selectedDate === minDate ? minTime : "";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -41,8 +38,6 @@ export function BookDemo() {
 
     setStatus("sending");
     try {
-      // Posts to our own API route, which forwards to the n8n webhook
-      // server-side (avoids the browser CORS block).
       const res = await fetch("/api/book-demo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,22 +47,26 @@ export function BookDemo() {
       setStatus("success");
       form.reset();
     } catch (err) {
-      console.error("Book demo submission failed:", err);
+      console.error("Contact form submission failed:", err);
       setStatus("error");
     }
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
+    <section className="mx-auto max-w-7xl px-5 pt-20 pb-12 md:px-8 md:pt-28 md:pb-16">
       <div className="grid gap-5 lg:grid-cols-2">
-        {/* what to expect */}
         <Reveal className="rounded-2xl border border-line bg-ink shadow-sm">
-          <div className="flex h-full flex-col p-8 md:p-10">
-            <p className="mono-label">What to expect</p>
+          <div className="flex h-full flex-col p-6 md:p-8">
+            <p className="mono-label">Get in touch & book demo</p>
             <h2 className="mt-6 font-display text-3xl font-medium tracking-tight text-balance md:text-4xl">
-              Let&apos;s see how Fiaxe would <span className="underline-bar">handle your calls.</span>
+              Let&apos;s talk about <span className="underline-bar">your business.</span>
             </h2>
-            <ol className="mt-8 space-y-5">
+            <p className="mt-6 text-base leading-relaxed text-muted">
+              Whether you want a live 30-minute discovery call, a custom quote,
+              or just have questions about our voice agents — pick a time or send us a message below.
+            </p>
+            
+            <ol className="mt-6 space-y-4 border-t border-line pt-6">
               {EXPECT.map((s, i) => (
                 <li key={s.t} className="flex gap-4">
                   <span className="grid size-8 shrink-0 place-items-center rounded-full border border-line-bright font-mono text-[11px] font-medium text-blue">
@@ -83,10 +82,9 @@ export function BookDemo() {
           </div>
         </Reveal>
 
-        {/* booking form */}
         <Reveal className="rounded-2xl border border-line bg-ink shadow-sm" delay={0.08}>
-          <form onSubmit={handleSubmit} className="flex h-full flex-col gap-5 p-8 md:p-10">
-            <div className="grid gap-5 sm:grid-cols-2">
+          <form onSubmit={handleSubmit} className="flex h-full flex-col gap-4 p-6 md:p-8">
+            <div className="grid gap-4 sm:grid-cols-2">
               <label className="flex flex-col gap-2">
                 <span className={labelCls}>Name <span className="text-blue">*</span></span>
                 <input name="name" required placeholder="Priya Sharma" className={fieldCls} />
@@ -120,11 +118,11 @@ export function BookDemo() {
               </select>
             </label>
             <label className="flex flex-col gap-2">
-              <span className={labelCls}>What would you like to automate?</span>
+              <span className={labelCls}>How can we help / What would you like to automate?</span>
               <textarea
                 name="usecase"
-                rows={3}
-                placeholder="e.g. inbound enquiries, site-visit bookings, follow-ups…"
+                rows={4}
+                placeholder="e.g. inbound enquiries, site-visit bookings, general questions…"
                 className={`resize-none ${fieldCls}`}
               />
             </label>
@@ -133,12 +131,12 @@ export function BookDemo() {
               disabled={status === "sending"}
               className="mt-1 rounded-xl bg-blue px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase transition-colors hover:bg-blue-bright disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {status === "sending" ? "Booking…" : "Book my discovery call →"}
+              {status === "sending" ? "Sending…" : "Submit request & book call →"}
             </button>
             {status === "success" && (
               <p className="text-center text-sm text-muted" role="status">
-                Thanks, your call request is in.{" "}
-                <span className="text-cream">We&apos;ll be in touch shortly</span> to confirm a time.
+                Thanks for reaching out!{" "}
+                <span className="text-cream">We&apos;ll be in touch shortly</span> to confirm your call or answer your questions.
               </p>
             )}
             {status === "error" && (
@@ -156,3 +154,4 @@ export function BookDemo() {
     </section>
   );
 }
+

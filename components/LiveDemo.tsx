@@ -178,7 +178,7 @@ export function LiveDemo() {
   const call = CALLS[selected];
 
   return (
-    <section id="live-demo" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <section id="live-demo" className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
       <SectionHeading
         index="06"
         label="Live Demo"

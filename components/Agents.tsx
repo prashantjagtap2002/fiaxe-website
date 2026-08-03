@@ -364,7 +364,7 @@ function AgentCard({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="group flex h-full flex-col rounded-2xl border border-line bg-ink p-7 shadow-sm transition-colors hover:bg-ink-2"
+      className="group flex h-full flex-col rounded-2xl border border-line bg-ink p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:bg-ink-2 hover:shadow-md"
     >
       <div className="flex items-baseline justify-between">
         <span className="font-mono text-xs text-faint">/0{index + 1}</span>
@@ -474,7 +474,7 @@ export function Agents() {
   const visible = AGENTS.filter((a) => active === "All" || a.industries.includes(active));
 
   return (
-    <section id="agents" className="mx-auto max-w-7xl px-5 pt-20 pb-8 md:px-8 md:pt-28 md:pb-12">
+    <section id="agents" className="mx-auto max-w-7xl px-5 pt-12 pb-6 md:px-8 md:pt-16 md:pb-8">
       {/* industry filter, flat mono tabs */}
       <div className="mb-8 flex flex-wrap gap-x-6 gap-y-3 border-b border-line pb-4">
         {INDUSTRIES.map((ind) => (

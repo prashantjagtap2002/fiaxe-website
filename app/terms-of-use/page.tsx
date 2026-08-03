@@ -4,6 +4,8 @@ import { Reveal } from "@/components/primitives";
 
 export const metadata: Metadata = {
   title: "Terms of Use | Fiaxe",
+  description: "Read the Fiaxe terms of use and service agreement.",
+  alternates: { canonical: "/terms-of-use" },
 };
 
 export default function TermsOfUsePage() {

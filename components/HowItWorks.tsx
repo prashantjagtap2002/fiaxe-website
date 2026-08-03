@@ -84,7 +84,7 @@ export function HowItWorks() {
   const [mode, setMode] = useState<"nocode" | "api">("nocode");
 
   return (
-    <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
       <SectionHeading
         index="04"
         label="How It Works"
@@ -130,7 +130,7 @@ export function HowItWorks() {
             className="grid gap-5 md:grid-cols-3"
           >
             {STEPS.map((s) => (
-              <div key={s.n} className="group rounded-2xl border border-line bg-ink p-8 shadow-sm transition-colors hover:bg-ink-2">
+              <div key={s.n} className="group rounded-2xl border border-line bg-ink p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:bg-ink-2 hover:shadow-md">
                 <span className="font-mono text-xs text-faint">{s.n}</span>
                 <h3 className="mt-6 font-display text-xl font-medium tracking-tight">{s.title}</h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-muted">{s.desc}</p>
@@ -169,7 +169,7 @@ export function HowItWorks() {
                 ))}
               </ul>
               <a
-                href="/book-demo"
+                href="/contact-us"
                 className="mt-7 inline-block font-mono text-xs tracking-[0.14em] text-cream uppercase underline decoration-line-bright underline-offset-8 transition-colors hover:decoration-cream"
               >
                 Talk to us →

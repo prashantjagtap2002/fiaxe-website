@@ -39,7 +39,7 @@ const FEATURES = [
 
 export function Features() {
   return (
-    <section id="features" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+    <section id="features" className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
       <SectionHeading
         index="05"
         label="Platform"
@@ -55,7 +55,7 @@ export function Features() {
       <Reveal>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f, i) => (
-            <div key={f.title} className="group rounded-2xl border border-line bg-ink p-7 shadow-sm transition-colors hover:bg-ink-2">
+            <div key={f.title} className="group rounded-2xl border border-line bg-ink p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:bg-ink-2 hover:shadow-md">
               <span className="font-mono text-xs text-faint">0{i + 1}</span>
               <h3 className="mt-5 font-display text-lg font-medium tracking-tight">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{f.desc}</p>

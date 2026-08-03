@@ -167,7 +167,7 @@ export function Testimonials() {
   }, [supportsHover]);
 
   return (
-    <section className="mx-auto max-w-7xl px-5 pt-24 pb-12 md:px-8 md:pt-32 md:pb-16">
+    <section className="mx-auto max-w-7xl px-5 pt-12 pb-8 md:px-8 md:pt-16 md:pb-10">
       <div className="max-w-2xl">
         <Reveal delay={0.06}>
           <h2 className="font-display text-4xl font-medium tracking-tight text-balance md:text-5xl">

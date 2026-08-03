@@ -33,7 +33,7 @@ const REASONS: Reason[] = [
 
 export function WhyFiaxe() {
   return (
-    <section id="why" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+    <section id="why" className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
       <div className="max-w-2xl">
         <Reveal>
           <Kicker label="Why Fiaxe" />
@@ -58,7 +58,7 @@ export function WhyFiaxe() {
         {REASONS.map((r) => (
           <Reveal key={r.title} className={r.span}>
             <div
-              className={`flex h-full flex-col rounded-2xl border border-line bg-ink shadow-sm transition-colors hover:bg-ink-2 ${
+              className={`group flex h-full flex-col rounded-2xl border border-line bg-ink shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:bg-ink-2 hover:shadow-md ${
                 r.feat ? "justify-between p-8" : "p-7"
               }`}
             >

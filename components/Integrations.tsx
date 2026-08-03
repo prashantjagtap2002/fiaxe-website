@@ -163,7 +163,7 @@ const INTEGRATIONS: Integration[] = [
 
 export function Integrations() {
   return (
-    <section id="integrations" className="border-y border-line bg-ink-2 py-20 md:py-28">
+    <section id="integrations" className="border-y border-line bg-ink-2 py-10 md:py-14">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeading
           index="04"

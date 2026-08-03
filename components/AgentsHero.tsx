@@ -11,7 +11,7 @@ const STATS = [
 /* Top-of-page hero for /agents: headline + a hero stat band. */
 export function AgentsHero() {
   return (
-    <section className="relative pt-32 pb-4 md:pt-40">
+    <section className="relative pt-28 pb-4 md:pt-36">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <h1 className="max-w-4xl font-display text-5xl font-medium leading-[1.05] tracking-tight text-balance md:text-[4rem]">
@@ -31,7 +31,7 @@ export function AgentsHero() {
                 <dt className="font-display text-3xl font-medium tracking-tight md:text-4xl">
                   {s.value}
                 </dt>
-                <dd className="font-mono text-[11px] leading-[1.5] tracking-[0.14em] text-faint uppercase">
+                <dd className="font-mono text-[11px] leading-[1.5] font-medium tracking-[0.14em] text-muted uppercase">
                   {s.label}
                 </dd>
               </div>

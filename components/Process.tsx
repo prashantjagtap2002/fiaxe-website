@@ -142,7 +142,7 @@ export function Process() {
   return (
     <section
       id="how-it-works"
-      className="mx-auto max-w-7xl px-5 pt-12 pb-10 md:px-8 md:pt-16 md:pb-12"
+      className="mx-auto max-w-7xl px-5 pt-8 pb-8 md:px-8 md:pt-12 md:pb-10"
     >
       {/* heading */}
       <div className="max-w-2xl">
@@ -178,7 +178,7 @@ export function Process() {
       <ol
         ref={trackRef}
         onPointerDown={pauseAuto}
-        className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pt-2 pb-3 max-lg:mt-0 md:-mx-8 md:px-8 lg:mx-0 lg:mt-14 lg:grid lg:grid-cols-6 lg:overflow-visible lg:px-0"
+        className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pt-2 pb-3 max-lg:mt-0 md:-mx-8 md:px-8 lg:mx-0 lg:mt-14 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0"
       >
         <li className="shrink-0 w-[10%] lg:hidden" aria-hidden="true" />
         {STEPS.map((s, i) => (

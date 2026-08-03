@@ -25,7 +25,8 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
     title: "Company",
     links: [
       { label: "Careers", href: "/careers" },
-      { label: "Book a demo", href: "/book-demo" },
+      { label: "Contact us", href: "/contact-us" },
+      { label: "Book a demo", href: "/contact-us" },
     ],
   },
   {
@@ -61,7 +62,7 @@ const SOCIALS = [
 export function Footer() {
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto max-w-7xl px-5 py-16 md:px-8">
+      <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-12">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:gap-12 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Logo />

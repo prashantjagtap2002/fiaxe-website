@@ -54,7 +54,7 @@ const COMPARISON: { without: string; with: string }[] = [
 
 export function CustomerOutcomes() {
   return (
-    <section className="mx-auto max-w-7xl px-5 pt-20 pb-10 md:px-8 md:pt-28 md:pb-12">
+    <section className="mx-auto max-w-7xl px-5 pt-10 pb-8 md:px-8 md:pt-14 md:pb-10">
       <SectionHeading
         label="The Difference"
         rightMeta="Real outcomes"
@@ -70,7 +70,7 @@ export function CustomerOutcomes() {
       <Reveal>
         <div className="grid gap-5 md:grid-cols-3">
           {OUTCOMES.map((o) => (
-            <div key={o.label} className="rounded-2xl border border-line bg-ink p-8 shadow-sm">
+            <div key={o.label} className="group rounded-2xl border border-line bg-ink p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:shadow-md">
               <p className="font-display text-5xl font-medium tracking-tight text-blue">
                 <CountUp value={o.value} prefix={o.prefix ?? ""} suffix={o.suffix} />
               </p>

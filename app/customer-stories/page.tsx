@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Customer Stories | Fiaxe",
   description:
     "See how businesses across real estate, healthcare, edtech, insurance, and more use custom Fiaxe voice agents to book more, recover more, and never miss a call.",
+  alternates: { canonical: "/customer-stories" },
 };
 
 export default function CustomerStoriesPage() {

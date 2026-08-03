@@ -128,7 +128,7 @@ export function Pricing() {
   );
 
   return (
-    <section id="pricing" className="mx-auto max-w-7xl px-5 pt-20 pb-8 md:px-8 md:pt-28 md:pb-12">
+    <section id="pricing" className="mx-auto max-w-7xl px-5 pt-10 pb-6 md:px-8 md:pt-16 md:pb-8">
       <SectionHeading
         index="01"
         label="Pricing"
@@ -156,7 +156,7 @@ export function Pricing() {
               </p>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{t.desc}</p>
               <a
-                href="/book-demo"
+                href="/contact-us"
                 className="group mt-7 flex items-center justify-between border-t border-line pt-4 font-mono text-[11px] font-medium tracking-[0.14em] text-cream uppercase transition-colors hover:text-blue"
               >
                 Get started
@@ -321,7 +321,7 @@ export function Pricing() {
         </div>
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {INCLUDED.map((f, i) => (
-            <div key={f.title} className="rounded-2xl border border-line bg-ink p-6 shadow-sm">
+            <div key={f.title} className="group rounded-2xl border border-line bg-ink p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:shadow-md">
               <span className="font-mono text-[10px] text-faint">0{i + 1}</span>
               <h3 className="mt-3 font-display text-[15px] font-medium tracking-tight">{f.title}</h3>
               <p className="mt-1.5 text-[13px] leading-relaxed text-muted">{f.desc}</p>

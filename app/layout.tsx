@@ -4,6 +4,7 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { InlineScript } from "@/components/InlineScript";
+import { Schema } from "@/components/Schema";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -12,6 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fiaxe.com"),
   title: "Fiaxe | Voice AI Calling Agents That Sound Human",
   description:
     "Power thousands of inbound and outbound calls every minute with human-like, multilingual voice AI, wired straight into your CRM. Build, test, deploy, and scale AI calling agents in minutes.",
@@ -23,11 +25,21 @@ export const metadata: Metadata = {
     "AI phone calls",
     "Fiaxe",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Fiaxe | Voice AI Calling Agents That Sound Human",
     description:
       "Build, test, deploy, and scale conversational voice AI agents. Go from idea to live calls in minutes, not weeks.",
     type: "website",
+    siteName: "Fiaxe",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fiaxe | Voice AI Calling Agents That Sound Human",
+    description: "Build, test, deploy, and scale conversational voice AI agents.",
   },
 };
 
@@ -48,6 +60,7 @@ export default function RootLayout({
         <InlineScript
           html={`(function(){try{var t=localStorage.getItem("theme");document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark");}catch(e){}})();`}
         />
+        <Schema />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Nav />

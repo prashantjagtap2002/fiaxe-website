@@ -26,7 +26,7 @@ export function Customers() {
       <Reveal>
         <div className="flex items-center justify-between gap-4">
           <Kicker label="Customers" />
-          <span className="hidden font-mono text-[10px] tracking-[0.16em] text-faint uppercase md:block">
+          <span className="hidden font-mono text-[10px] font-semibold tracking-[0.16em] text-cream/70 uppercase md:block">
             Trusted by teams at
           </span>
         </div>
@@ -36,10 +36,10 @@ export function Customers() {
           <div className="flex shrink-0 animate-marquee items-center gap-14 pr-14">
             {[...CLIENTS, ...CLIENTS].map((name, i) => (
               <span key={`${name}-${i}`} className="flex items-center gap-14 whitespace-nowrap">
-                <span className="font-display text-xl font-medium tracking-tight text-faint transition-colors hover:text-cream">
+                <span className="font-display text-xl font-semibold tracking-tight text-cream/85 transition-colors hover:text-cream">
                   {name}
                 </span>
-                <span className="size-1 rounded-full bg-line-bright" />
+                <span className="size-1 rounded-full bg-cream/40" />
               </span>
             ))}
           </div>

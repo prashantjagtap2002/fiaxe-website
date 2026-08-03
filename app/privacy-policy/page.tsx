@@ -4,6 +4,8 @@ import { Reveal } from "@/components/primitives";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Fiaxe",
+  description: "Read the Fiaxe privacy policy.",
+  alternates: { canonical: "/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {

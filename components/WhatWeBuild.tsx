@@ -28,7 +28,7 @@ const PILLARS: Pillar[] = [
 
 export function WhatWeBuild() {
   return (
-    <section id="what-we-build" className="mx-auto max-w-7xl px-5 pt-24 pb-12 md:px-8 md:pt-32 md:pb-16">
+    <section id="what-we-build" className="mx-auto max-w-7xl px-5 pt-12 pb-8 md:px-8 md:pt-16 md:pb-10">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         {/* narrative column, centered against the taller list */}
         <div className="lg:col-span-5 lg:self-center">
@@ -47,7 +47,7 @@ export function WhatWeBuild() {
             </Reveal>
             <Reveal delay={0.18}>
               <Link
-                href="/book-demo"
+                href="/contact-us"
                 className="mt-8 inline-flex rounded-full bg-blue px-6 py-3 font-mono text-[11px] font-medium tracking-[0.14em] text-white uppercase shadow-sm transition-colors hover:bg-blue-bright"
               >
                 Book a discovery call →

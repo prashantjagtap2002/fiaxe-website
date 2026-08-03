@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Careers | Fiaxe",
   description:
     "Help build custom AI voice agents for Indian businesses. Open roles in engineering, conversation design, solutions, and customer success.",
+  alternates: { canonical: "/careers" },
 };
 
 const PERKS = [
@@ -42,7 +43,7 @@ export default function CareersPage() {
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
+      <section className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
         <Reveal>
           <h2 className="mb-8 font-display text-3xl font-medium tracking-tight">Apply now</h2>
         </Reveal>

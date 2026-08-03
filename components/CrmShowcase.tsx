@@ -200,7 +200,7 @@ const CRM_POINTS = [
 
 export function CrmShowcase() {
   return (
-    <section id="crm" className="border-y border-line bg-ink-2 py-20 md:py-28">
+    <section id="crm" className="border-y border-line bg-ink-2 py-10 md:py-14">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeading
           index="09"
@@ -231,7 +231,7 @@ export function CrmShowcase() {
             </div>
             <Reveal delay={0.25}>
               <a
-                href="/book-demo"
+                href="/contact-us"
                 className="mt-8 inline-block rounded-xl bg-cream px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-canvas uppercase transition-colors hover:bg-blue hover:text-white"
               >
                 Explore Fiaxe CRM →

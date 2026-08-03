@@ -72,7 +72,7 @@ const INDUSTRIES: Industry[] = [
 
 export function IndustriesGrid() {
   return (
-    <section id="industries" className="mx-auto max-w-7xl px-5 pt-12 pb-12 md:px-8 md:pt-16 md:pb-16">
+    <section id="industries" className="mx-auto max-w-7xl px-5 pt-8 pb-8 md:px-8 md:pt-12 md:pb-12">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         {/* list column (left on desktop) */}
         <div className="order-2 lg:order-1 lg:col-span-7">
@@ -125,7 +125,7 @@ export function IndustriesGrid() {
             </Reveal>
             <Reveal delay={0.14}>
               <Link
-                href="/book-demo"
+                href="/contact-us"
                 className="mt-8 inline-flex rounded-full bg-blue px-6 py-3 font-mono text-[11px] font-medium tracking-[0.14em] text-white uppercase shadow-sm transition-colors hover:bg-blue-bright"
               >
                 Build my agent →

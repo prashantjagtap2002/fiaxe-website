@@ -97,7 +97,7 @@ export function PromoModal() {
             </p>
 
             <Link
-              href="/book-demo"
+              href="/contact-us"
               onClick={close}
               className="mt-6 inline-block w-full rounded-xl bg-blue px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase transition-colors hover:bg-blue-bright"
             >

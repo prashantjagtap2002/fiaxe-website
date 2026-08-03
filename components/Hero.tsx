@@ -22,25 +22,7 @@ export function Hero() {
       />
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="mx-auto flex max-w-3xl flex-col items-center py-6 text-center md:py-10">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-8"
-          >
-            <Link
-              href="/book-demo"
-              className="hero-copy group inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 py-1.5 pr-4 pl-1.5 text-sm text-white/90 backdrop-blur-md transition-colors hover:bg-white/20"
-            >
-              <span className="rounded-full bg-blue px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-[0.12em] text-white uppercase">
-                Free
-              </span>
-              <span className="font-medium">Book a call to claim your first 100 minutes free</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
-                <path d="m9 18 6-6-6-6" />
-              </svg>
-            </Link>
-          </motion.div>
+
 
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
@@ -68,7 +50,7 @@ export function Hero() {
             className="mt-9 flex flex-wrap items-center justify-center gap-4"
           >
             <Link
-              href="/book-demo"
+              href="/contact-us"
               className="group rounded-full bg-blue px-6 py-3.5 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase shadow-sm transition-colors hover:bg-blue-bright"
             >
               <span className="flex items-center gap-2.5">
@@ -96,14 +78,14 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.75 }}
-            className="mt-12 grid w-full max-w-2xl grid-cols-4 gap-2 border-t border-line pt-6 sm:gap-y-8 sm:pt-8"
+            className="mt-12 grid w-full max-w-2xl grid-cols-4 gap-2 border-t border-white/20 pt-6 sm:gap-y-8 sm:pt-8"
           >
             {STATS.map((s) => (
               <div
                 key={s.label}
-                className="text-center sm:border-l sm:border-line sm:first:border-l-0"
+                className="text-center sm:border-l sm:border-white/20 sm:first:border-l-0"
               >
-                <p className="font-display text-xl leading-none font-medium tracking-tight md:text-4xl">
+                <p className="font-display text-2xl leading-none font-semibold tracking-tight text-white md:text-4xl">
                   <CountUp
                     value={s.value}
                     prefix={s.prefix ?? ""}
@@ -111,7 +93,7 @@ export function Hero() {
                     decimals={s.decimals ?? 0}
                   />
                 </p>
-                <p className="mt-1 font-mono text-[8px] leading-[1.5] tracking-[0.16em] text-faint uppercase md:mt-3 md:text-[10px]">
+                <p className="mt-1 font-mono text-[9px] leading-[1.4] font-medium tracking-[0.16em] text-white/90 uppercase md:mt-3 md:text-xs">
                   {s.label}
                 </p>
               </div>
@@ -127,17 +109,17 @@ export function Hero() {
           transition={{ duration: 0.7 }}
           className="border-t border-line py-8"
         >
-          <p className="mb-6 text-center font-mono text-[10px] tracking-[0.16em] text-faint uppercase">
+          <p className="mb-6 text-center font-mono text-[10px] font-semibold tracking-[0.16em] text-cream/70 uppercase">
             Trusted by teams at
           </p>
           <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
             <div className="flex shrink-0 animate-marquee items-center gap-14 pr-14">
               {[...CLIENTS, ...CLIENTS].map((name, i) => (
                 <span key={`${name}-${i}`} className="flex items-center gap-14 whitespace-nowrap">
-                  <span className="font-display text-xl font-medium tracking-tight text-faint transition-colors hover:text-cream">
+                  <span className="font-display text-xl font-semibold tracking-tight text-cream/85 transition-colors hover:text-cream">
                     {name}
                   </span>
-                  <span className="size-1 rounded-full bg-line-bright" />
+                  <span className="size-1 rounded-full bg-cream/40" />
                 </span>
               ))}
             </div>

@@ -19,6 +19,7 @@ const PAGE_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "Agents", href: "/agents" },
   { label: "Careers", href: "/careers" },
+  { label: "Contact Us", href: "/contact-us" },
 ];
 
 export function Nav() {
@@ -68,7 +69,7 @@ export function Nav() {
   // solid panel they return to the theme colour.
   const overHero = pathname === "/" && !scrolled;
 
-  const linkBase = "px-3.5 py-2 text-[15px] font-medium transition-colors";
+  const linkBase = "whitespace-nowrap px-2.5 py-2 text-[14px] font-medium transition-colors";
   const linkColor = overHero
     ? "text-white/80 hover:text-white"
     : "text-cream hover:text-blue";
@@ -96,11 +97,17 @@ export function Nav() {
 
         {/* full nav, only on very wide screens given the link count */}
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center xl:flex">
-          {[...SCROLL_LINKS, ...PAGE_LINKS].map((l) => {
+          {[
+            { label: "Home", href: "/" },
+            ...SCROLL_LINKS,
+            ...PAGE_LINKS,
+          ].map((l) => {
             const sectionId = l.href.includes("#") ? l.href.split("#")[1] : null;
             const active = sectionId
               ? pathname === "/" && activeSection === sectionId
-              : pathname === l.href;
+              : l.href === "/"
+                ? pathname === "/" && !activeSection
+                : pathname === l.href;
             return (
               <Link
                 key={l.href}
@@ -123,12 +130,7 @@ export function Nav() {
 
         <div className="flex items-center gap-2 md:gap-3">
           <ThemeToggle light={overHero} />
-          <Link
-            href="/book-demo"
-            className="hidden rounded-full bg-blue px-5 py-2 text-[14px] font-medium text-white shadow-sm transition-colors hover:bg-blue-bright sm:block"
-          >
-            Book Demo
-          </Link>
+
 
           <button
             className="flex flex-col gap-1.5 p-2 xl:hidden"
@@ -186,13 +188,7 @@ export function Nav() {
               </Link>
             );
           })}
-          <Link
-            href="/book-demo"
-            onClick={() => setOpen(false)}
-            className="mt-3 block rounded-full bg-blue px-5 py-3 text-center text-[15px] font-medium text-white"
-          >
-            Book Demo
-          </Link>
+
         </div>
       )}
     </motion.header>

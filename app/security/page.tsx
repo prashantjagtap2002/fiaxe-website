@@ -3,7 +3,9 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/primitives";
 
 export const metadata: Metadata = {
-  title: "Security | Fiaxe",
+  title: "Security & Compliance | Fiaxe",
+  description: "Learn how Fiaxe protects your data and maintains compliance.",
+  alternates: { canonical: "/security" },
 };
 
 export default function SecurityPage() {

@@ -68,7 +68,7 @@ function AgentRow({
       onClick={togglePlay}
       aria-label={playing ? `Pause ${agent.name} sample` : `Play ${agent.name} sample`}
       aria-pressed={playing}
-      className="group flex snap-center shrink-0 flex-col rounded-2xl border border-line bg-ink p-6 text-left shadow-sm transition-colors hover:border-line-bright w-[80%] sm:w-[48%] lg:w-[31.5%]"
+      className="group flex snap-center shrink-0 flex-col rounded-2xl border border-line bg-ink p-6 text-left shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-line-bright hover:shadow-md w-[80%] sm:w-[48%] lg:w-[31.5%]"
     >
       <div className="flex items-center justify-between">
         <span className="font-mono text-xs text-faint">/0{index + 1}</span>
@@ -358,7 +358,7 @@ export function AgentsStrip() {
   };
 
   return (
-    <section className="mx-auto max-w-7xl px-5 pt-10 pb-20 md:px-8 md:pt-16 md:pb-28">
+    <section className="mx-auto max-w-7xl px-5 pt-8 pb-10 md:px-8 md:pt-12 md:pb-14">
       <SectionHeading
         index="07"
         label="Meet The Agents"

@@ -45,7 +45,7 @@ export function FAQ() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="faq" className="mx-auto max-w-7xl px-5 pt-12 pb-8 md:px-8 md:pt-16 md:pb-10">
+    <section id="faq" className="mx-auto max-w-7xl px-5 pt-8 pb-6 md:px-8 md:pt-12 md:pb-8">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
         {/* sticky heading + nudge */}
         <div className="lg:col-span-4">
@@ -62,7 +62,7 @@ export function FAQ() {
             </Reveal>
             <Reveal delay={0.14}>
               <Link
-                href="/book-demo"
+                href="/contact-us"
                 className="mt-7 inline-flex rounded-full border border-line-bright px-6 py-3 font-mono text-[11px] font-medium tracking-[0.14em] text-cream uppercase transition-colors hover:border-cream"
               >
                 Ask us directly →

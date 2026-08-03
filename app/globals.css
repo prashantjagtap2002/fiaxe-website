@@ -48,6 +48,7 @@
   --cream: #1b1714;
   --muted: #6a635c;
   --faint: #a69e94;
+  color-scheme: light;
 }
 
 /* ── Dark theme ────────────────────────────────────────────────────── */
@@ -65,6 +66,25 @@
   --cream: #f4f1ec;
   --muted: #a39d96;
   --faint: #6f6960;
+  color-scheme: dark;
+}
+
+/* ── Native Date & Time Picker Icons ───────────────────────────────── */
+input[type="date"],
+input[type="time"] {
+  color-scheme: inherit;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }
 
 @keyframes marquee {

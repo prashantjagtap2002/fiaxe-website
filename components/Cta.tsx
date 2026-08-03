@@ -5,9 +5,9 @@ import { Reveal, Waveform } from "./primitives";
 
 export function Cta() {
   return (
-    <section id="cta" className="mx-auto max-w-7xl px-5 pt-10 pb-20 md:px-8 md:pt-16 md:pb-28">
+    <section id="cta" className="mx-auto max-w-7xl px-5 pt-8 pb-10 md:px-8 md:pt-12 md:pb-14">
       <Reveal>
-        <div className="overflow-hidden rounded-3xl border border-line bg-ink px-6 py-16 text-center shadow-lg shadow-black/5 md:px-8 md:py-24">
+        <div className="overflow-hidden rounded-3xl border border-line bg-ink px-6 py-10 text-center shadow-lg shadow-black/5 md:px-8 md:py-14">
           <div className="mx-auto max-w-3xl">
             <div className="flex justify-center">
               <Waveform bars={6} className="h-6" />
@@ -33,7 +33,7 @@ export function Cta() {
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/book-demo"
+                href="/contact-us"
                 className="rounded-full bg-blue px-7 py-4 font-mono text-xs font-medium tracking-[0.14em] text-white uppercase shadow-sm transition-colors hover:bg-blue-bright"
               >
                 Book a discovery call →

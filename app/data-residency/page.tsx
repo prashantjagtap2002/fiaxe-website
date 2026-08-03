@@ -3,7 +3,9 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/primitives";
 
 export const metadata: Metadata = {
-  title: "Data Residency | Fiaxe",
+  title: "Data Residency & Sovereignty | Fiaxe",
+  description: "Learn how Fiaxe keeps your customer data within Indian borders.",
+  alternates: { canonical: "/data-residency" },
 };
 
 export default function DataResidencyPage() {

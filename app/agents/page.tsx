@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "AI Agents | Fiaxe",
   description:
     "Receptionist, lead qualification, appointment booking, support, follow-up, and outbound calling agents, every one custom-built for your business.",
+  alternates: { canonical: "/agents" },
 };
 
 export default function AgentsPage() {
