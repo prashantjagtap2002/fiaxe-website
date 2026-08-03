@@ -35,6 +35,7 @@ export function ContactUs() {
     e.preventDefault();
     const form = e.currentTarget;
     const payload = Object.fromEntries(new FormData(form).entries());
+    payload.page = "contactus";
 
     setStatus("sending");
     try {

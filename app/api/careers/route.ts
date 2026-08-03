@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 // Server-side proxy to the n8n careers webhook. Posting from the browser
 // directly to n8n.fiaxe.com is blocked by CORS, so we forward here instead.
-const WEBHOOK_URL = "https://n8n.fiaxe.com/webhook/a33b0d6e-92b2-42e5-8fa9-7aae2ef15d34";
+const WEBHOOK_URL = "https://n8n.fiaxe.com/webhook/6307d669-2cfb-403f-92b3-26754074f984";
 
 export async function POST(request: Request) {
   try {

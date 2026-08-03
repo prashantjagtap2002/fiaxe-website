@@ -30,6 +30,7 @@ export function CareersForm() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
+    data.append("page", "carrerpage");
 
     setStatus("sending");
     try {

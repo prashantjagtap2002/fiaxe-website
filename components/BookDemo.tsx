@@ -38,6 +38,7 @@ export function BookDemo() {
     e.preventDefault();
     const form = e.currentTarget;
     const payload = Object.fromEntries(new FormData(form).entries());
+    payload.page = "bookdemo";
 
     setStatus("sending");
     try {

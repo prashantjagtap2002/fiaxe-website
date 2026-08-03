@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 // Server-side proxy to the n8n book-demo webhook. Posting from the browser
 // directly to n8n.fiaxe.com is blocked by CORS, so we forward here instead.
-const WEBHOOK_URL = "https://n8n.fiaxe.com/webhook/58e4e0d4-2014-4e82-b655-703d8fb862c9";
+const WEBHOOK_URL = "https://n8n.fiaxe.com/webhook/6307d669-2cfb-403f-92b3-26754074f984";
 
 export async function POST(request: Request) {
   try {
