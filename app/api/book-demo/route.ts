@@ -6,14 +6,22 @@ const WEBHOOK_URL = "https://n8n.fiaxe.com/webhook/6307d669-2cfb-403f-92b3-26754
 
 export async function POST(request: Request) {
   try {
-    // Forward the raw body and its Content-Type straight through.
-    const body = await request.arrayBuffer();
+    const bodyText = await request.text();
     const contentType = request.headers.get("content-type") ?? "application/json";
+
+    // Honeypot check
+    try {
+      const data = JSON.parse(bodyText);
+      if (data.website_url) {
+        // Fake success to the bot
+        return NextResponse.json({ ok: true });
+      }
+    } catch {}
 
     const res = await fetch(WEBHOOK_URL, {
       method: "POST",
       headers: { "content-type": contentType },
-      body,
+      body: bodyText,
     });
 
     if (!res.ok) {

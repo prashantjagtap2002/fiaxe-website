@@ -104,6 +104,10 @@ export function ContactUs() {
 
         <Reveal className="rounded-2xl border border-line bg-ink shadow-sm" delay={0.08}>
           <form onSubmit={handleSubmit} className="flex h-full flex-col gap-4 p-6 md:p-8">
+            {/* Honeypot field to catch bots */}
+            <div style={{ display: "none" }} aria-hidden="true">
+              <input type="text" name="website_url" tabIndex={-1} autoComplete="off" />
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="flex flex-col gap-2">
                 <span className={labelCls}>Name <span className="text-blue">*</span></span>
