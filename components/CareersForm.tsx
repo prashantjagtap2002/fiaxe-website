@@ -111,11 +111,11 @@ export function CareersForm() {
           </label>
           <label className="flex flex-col gap-2">
             <span className={labelCls}>Email <span className="text-blue">*</span></span>
-            <input name="email" type="email" required placeholder="you@email.com" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" className={fieldCls} />
+            <input name="email" type="email" required placeholder="you@email.com" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" className={fieldCls} />
           </label>
           <label className="flex flex-col gap-2">
             <span className={labelCls}>Phone <span className="text-blue">*</span></span>
-            <input name="phone" type="tel" required placeholder="+91 98765 43210" pattern="[+]?[0-9 ()-]{7,15}" title="Please enter a valid phone number" className={fieldCls} />
+            <input name="phone" type="tel" required placeholder="+91 98765 43210" pattern="[\+]?[0-9 ()\-]{7,15}" title="Please enter a valid phone number" className={fieldCls} />
           </label>
           <label className="flex flex-col gap-2">
             <span className={labelCls}>Notice period</span>
