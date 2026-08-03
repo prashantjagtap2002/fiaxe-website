@@ -18,7 +18,6 @@ const SCROLL_LINKS = [
 const PAGE_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "Agents", href: "/agents" },
-  { label: "Careers", href: "/careers" },
   { label: "Contact Us", href: "/contact-us" },
 ];
 

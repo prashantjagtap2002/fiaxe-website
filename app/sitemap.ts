@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/customer-stories",
     "/pricing",
     "/contact-us",
-    "/careers",
     "/data-residency",
     "/security",
     "/privacy-policy",
