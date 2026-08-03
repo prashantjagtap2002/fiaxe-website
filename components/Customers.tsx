@@ -3,6 +3,11 @@
 import { Reveal, Kicker } from "./primitives";
 
 export const CLIENTS = [
+  { name: "Mahindra", domain: "mahindra.com" },
+  { name: "MG", domain: "mgmotor.co.in" },
+  { name: "Audi", domain: "audi.com" },
+  { name: "Thinkarz", domain: "thinkarz.com" },
+  { name: "Hyundai", domain: "hyundai.com" },
   { name: "Volkswagen", domain: "volkswagen.com" },
   { name: "Tata Consumer Products", domain: "tataconsumer.com" },
   { name: "Pfizer", domain: "pfizer.com" },
