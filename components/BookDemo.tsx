@@ -64,9 +64,9 @@ export function BookDemo() {
         <Reveal className="rounded-2xl border border-line bg-ink shadow-sm">
           <div className="flex h-full flex-col p-8 md:p-10">
             <p className="mono-label">What to expect</p>
-            <h2 className="mt-6 font-display text-3xl font-medium tracking-tight text-balance md:text-4xl">
+            <h1 className="mt-6 font-display text-3xl font-medium tracking-tight text-balance md:text-4xl">
               Let&apos;s see how Fiaxe would <span className="underline-bar">handle your calls.</span>
-            </h2>
+            </h1>
             <ol className="mt-8 space-y-5">
               {EXPECT.map((s, i) => (
                 <li key={s.t} className="flex gap-4">

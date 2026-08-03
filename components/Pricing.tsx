@@ -130,6 +130,7 @@ export function Pricing() {
   return (
     <section id="pricing" className="mx-auto max-w-7xl px-5 pt-10 pb-6 md:px-8 md:pt-16 md:pb-8">
       <SectionHeading
+        as="h1"
         index="01"
         label="Pricing"
         rightMeta="Per-minute · No seat licenses"

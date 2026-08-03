@@ -58,9 +58,9 @@ export function ContactUs() {
         <Reveal className="rounded-2xl border border-line bg-ink shadow-sm">
           <div className="flex h-full flex-col p-6 md:p-8">
             <p className="mono-label">Get in touch & book demo</p>
-            <h2 className="mt-6 font-display text-3xl font-medium tracking-tight text-balance md:text-4xl">
+            <h1 className="mt-6 font-display text-3xl font-medium tracking-tight text-balance md:text-4xl">
               Let&apos;s talk about <span className="underline-bar">your business.</span>
-            </h2>
+            </h1>
             <p className="mt-6 text-base leading-relaxed text-muted">
               Whether you want a live 30-minute discovery call, a custom quote,
               or just have questions about our voice agents — pick a time or send us a message below.

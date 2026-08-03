@@ -77,6 +77,7 @@ export function CountUp({
 export function SectionHeading({
   title,
   copy,
+  as = "h2",
 }: {
   index?: string;
   label?: string;
@@ -84,13 +85,15 @@ export function SectionHeading({
   copy?: string;
   rightMeta?: string;
   align?: "left" | "center";
+  as?: "h1" | "h2";
 }) {
+  const Component = as;
   return (
     <div className="mb-12 md:mb-16">
       <Reveal>
-        <h2 className="max-w-3xl font-display text-4xl font-medium tracking-tight text-balance md:text-5xl lg:text-[3.3rem] lg:leading-[1.07]">
+        <Component className="max-w-3xl font-display text-4xl font-medium tracking-tight text-balance md:text-5xl lg:text-[3.3rem] lg:leading-[1.07]">
           {title}
-        </h2>
+        </Component>
       </Reveal>
       {copy && (
         <Reveal delay={0.14}>

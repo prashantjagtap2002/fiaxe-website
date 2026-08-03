@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://fiaxe.com"),
   title: "Fiaxe | Voice AI Calling Agents That Sound Human",
   description:
-    "Power thousands of inbound and outbound calls every minute with human-like, multilingual voice AI, wired straight into your CRM. Build, test, deploy, and scale AI calling agents in minutes.",
+    "Deploy human-like, multilingual voice AI agents for inbound and outbound calls. Wire directly into your CRM to build, test, and scale in minutes.",
   keywords: [
     "AI calling",
     "voice AI",
@@ -40,6 +40,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Fiaxe | Voice AI Calling Agents That Sound Human",
     description: "Build, test, deploy, and scale conversational voice AI agents.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
