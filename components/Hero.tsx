@@ -121,7 +121,7 @@ export function Hero() {
                     src={client.logo || `https://www.google.com/s2/favicons?domain=${client.domain}&sz=128`} 
                     alt={client.name} 
                     title={client.name}
-                    className={`block shrink-0 object-contain transition-all opacity-85 hover:opacity-100 h-8 md:h-10 w-auto max-w-[140px] md:max-w-[180px] ${client.className || ''}`}
+                    className={`ticker-logo block shrink-0 object-contain h-8 md:h-10 w-auto max-w-[140px] md:max-w-[180px] ${client.className || ''}`}
                   />
                   <span className="block size-1.5 shrink-0 rounded-full bg-cream/40 -translate-y-[1px]" />
                 </span>
